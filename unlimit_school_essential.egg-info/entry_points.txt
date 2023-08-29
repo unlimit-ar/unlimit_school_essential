@@ -1,0 +1,2 @@
+[trytond.modules]
+unlimit_school_essential = trytond.modules.unlimit_school_essential

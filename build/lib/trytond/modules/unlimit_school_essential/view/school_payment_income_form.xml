@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<form col="4">
+    <group col="6" colspan="4" id="general">
+        <label name="start_date"/>
+        <field name="start_date"/>
+        <label name="end_date"/>
+        <field name="end_date"/>
+        <newline/>
+        <label name="year"/>
+        <field name="year"/>
+        <label name="level"/>
+        <field name="level"/>
+        <label name="section"/>
+        <field name="section"/>
+        <label name="grade"/>
+        <field name="grade"/>
+        <label name="student"/>
+        <field name="student"/>
+    </group>
+    <button name="update" colspan="4"/>
+    <notebook colspan="6">
+        <page string="Income" id="income">
+            <field name="payments" colspan="4"/>
+            <label name="total_amount"/>
+            <field name="total_amount"/>
+        </page>
+    </notebook>
+</form>

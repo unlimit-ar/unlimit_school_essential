@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<form col="6">
+    <group col="6" colspan="6" id="header" yalign="0">
+        <label name="name"/>
+        <field name="name"/>
+        <label name="lastname"/>
+        <field name="lastname"/>
+        <group col="-1" colspan="2" id="checkboxes">
+            <label name="active"/>
+            <field name="active" xexpand="0" width="25"/>
+            <label name="is_student"/>
+            <field name="is_student" xexpand="0" width="25"/>
+        </group>
+        <label name="citizenship"/>
+        <field name="citizenship"/>
+        <label name="tipo_documento"/>
+        <field name="tipo_documento"/>
+        <label name="doc_number"/>
+        <field name="doc_number"/>
+        <label name="family"/>
+        <field name="family" colspan="5"/>
+    </group>
+    <group col="6" colspan="6" id="student">
+        <label name="dob"/>
+        <field name="dob"/>
+        <label name="age"/>
+        <field name="age"/>
+        <label name="gender"/>
+        <field name="gender"/>
+    </group>
+    <notebook colspan="6">
+        <page string="Contact Mechanisms" id="contact_mechanisms">
+            <field name="contact_mechanisms_function" colspan="6" mode="tree"
+                    view_ids="unlimit_school_essential.contact_mechanism_view_tree"/>
+        </page>
+        <page string="Inscriptions" id="inscriptions">
+            <field name="inscriptions" colspan="6"/>
+        </page>
+
+    </notebook>
+</form>

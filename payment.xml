@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+
+<!-- Menu -->
+        <menuitem
+            sequence="20"
+            name="Payment"
+            id="menu_school_payment"/>
+
+        
+<!-- School Payment --> 
+        <record model="ir.ui.view" id="school_payment_view_form">
+            <field name="model">school.payment</field>
+            <field name="type">form</field>
+            <field name="name">school_payment_form</field>
+        </record>
+        <record model="ir.ui.view" id="school_payment_view_list">
+            <field name="model">school.payment</field>
+            <field name="type">tree</field>
+            <field name="name">school_payment_list</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_school_payment_view">
+            <field name="name">Payment</field>
+            <field name="res_model">school.payment</field>
+            <field name="domain" eval="" pyson="1"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_school_payment_view_tree_view">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="school_payment_view_list"/>
+            <field name="act_window" ref="act_school_payment_view"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_school_payment_view_form_view">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="school_payment_view_form"/>
+            <field name="act_window" ref="act_school_payment_view"/>
+        </record>
+
+        <menuitem
+            parent="menu_school_payment"
+            sequence="10"
+            action="act_school_payment_view"
+            id="menu_school_payment_pay"/>
+            
+            
+<!-- School Payment Income 
+        <record model="ir.ui.view" id="school_payment_income_view_form">
+            <field name="model">school.payment.income</field>
+            <field name="type">form</field>
+            <field name="name">school_payment_income_form</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_school_payment_income_view">
+            <field name="name">Payment Income</field>
+            <field name="res_model">school.payment.income</field>
+            <field name="domain" eval="" pyson="1"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_school_payment_income_view_form_view">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="school_payment_income_view_form"/>
+            <field name="act_window" ref="act_school_payment_income_view"/>
+        </record>
+
+        <menuitem
+            parent="menu_school_payment"
+            sequence="20"
+            action="act_school_payment_income_view"
+            id="menu_school_payment__income"/>
+-->
+
+<!-- Referral of Services Report -->
+        <record model="ir.action.report" id="report_school_payment">
+            <field name="name">Payment Report</field>
+            <field name="model">school.payment</field>
+            <field name="report_name">school.payment.report</field>
+            <field name="report">unlimit_school_essential/report/payment.fodt</field>
+        </record>
+
+        <record model="ir.action.keyword" id="key_report_school_payment">
+            <field name="keyword">form_print</field>
+            <field name="model">school.payment,-1</field>
+            <field name="action" ref="report_school_payment"/>
+        </record>
+
+<!-- Button -->
+        <record model="ir.model.button" id="pay_button">
+            <field name="name">pay</field>
+            <field name="string">Pay</field>
+            <field name="model" search="[('model', '=', 'school.payment')]"/>
+        </record>
+        <record model="ir.model.button" id="cancel_button">
+            <field name="name">cancel</field>
+            <field name="string">Cancel</field>
+            <field name="model" search="[('model', '=', 'school.payment')]"/>
+        </record>
+        <record model="ir.model.button" id="update_button">
+            <field name="name">update</field>
+            <field name="string">Update</field>
+            <field name="model" search="[('model', '=', 'school.payment.income')]"/>
+        </record>
+
+    </data>
+</tryton>

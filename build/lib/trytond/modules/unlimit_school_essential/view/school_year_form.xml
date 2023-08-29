@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<form>
+    <label name="name"/>
+    <field name="name"/>
+    <label name="enrollment"/>
+    <field name="enrollment" mode="tree,form"
+        view_ids="unlimit_school_essential.school_product_view_list1,unlimit_school_essential.school_product_enrollment_view_form"/>
+    <label name="enrollment2"/>
+    <field name="enrollment2" mode="tree,form"
+        view_ids="unlimit_school_essential.school_product_view_list1,unlimit_school_essential.school_product_enrollment_view_form"/>
+    <field name="products" colspan="4"/>
+    <label name="state"/>
+    <field name="state"/>
+    <group col="-1" colspan="2" id="buttons">
+        <button name="autocomplete_products" icon="tryton-launch"/>
+        <button name="in_caming" icon="tryton-forward"/>
+        <button name="in_progress" icon="tryton-forward"/>
+        <button name="end" icon="tryton-close"/>
+    </group>
+</form>
+

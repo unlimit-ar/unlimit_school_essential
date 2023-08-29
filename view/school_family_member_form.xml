@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<form>
+    <label name="party"/>
+    <field name="party" mode="tree,form" colspan="1"
+        view_ids="unlimit_school_essential.school_student_party_view_list,unlimit_school_essential.school_party_view_form"/>
+    <label name="role"/>
+    <field name="role"/>
+</form>

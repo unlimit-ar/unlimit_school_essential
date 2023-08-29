@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<form>
+    <group id="family_header">
+        <label name="name"/>
+        <field name="name"/>
+    </group>
+    <newline/>
+    <separator string="Members" id="members"/>
+    <newline/>
+    <field name="members"/>
+    <newline/>
+    <field name="students_members" mode="tree,form"
+            view_ids="unlimit_school_essential.school_student_party_view_list,unlimit_school_essential.school_student_party_view_form"/>
+    <newline/>
+    <separator string="Extra Info" id="extra_info"/>
+    <newline/>
+    <field name="info"/>
+</form>

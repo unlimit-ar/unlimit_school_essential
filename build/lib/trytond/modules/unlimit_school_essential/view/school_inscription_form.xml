@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<form col="6">
+    <label name="year"/>
+    <field name="year"/>
+    <label name="student"/>
+    <field name="student"/>
+    <label name="doc_number"/>
+    <field name="doc_number"/>
+    <label name="level"/>
+    <field name="level"/>
+    <label name="section"/>
+    <field name="section"/>
+    <label name="grade"/>
+    <field name="grade"/>
+    <label name="fee_type"/>
+    <field name="fee_type"/>
+    <label name="enrollment_fraction"/>
+    <field name="enrollment_fraction"/>
+    <field name="products" colspan="6"/>
+</form>
+
