@@ -15,10 +15,10 @@ class SchoolProductsConfiguration(ModelSQL):
     "School Products Configuration"
     __name__ = 'school.configuration-product.product'
     config = fields.Many2One(
-        'school.configuration', "Button Ruled",
+        'school.configuration', "Configuration",
         required=True, ondelete='CASCADE')
     product = fields.Many2One(
-        'product.product', "Button",
+        'product.product', "Product",
         required=True, ondelete='CASCADE')
 
 

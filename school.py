@@ -223,7 +223,7 @@ class SchoolConfig(Wizard):
     
 
 class SchoolInscription(ModelSQL, ModelView):
-    'SchoolInscription'
+    'School Inscription'
     __name__ = 'school.inscription'
 
     year = fields.Many2One('school.year', 'School Year', domain=[('state', 'in', ['in_caming', 'in_progress'])], required=True)

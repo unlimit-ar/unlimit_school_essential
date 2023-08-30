@@ -31,7 +31,7 @@ class Party(metaclass=PoolMeta):
     is_person = fields.Boolean('Person',
         help='Check if the party is a person.')
     is_student = fields.Boolean('Student',
-        help='Check if the party is a person.')
+        help='Check if the party is a student.')
     family = fields.Many2One('school.family', 'Family')
     # family = fields.One2Many('school.family', 'party', 'Family')
     gender = fields.Selection((
@@ -58,6 +58,12 @@ class Party(metaclass=PoolMeta):
         super().__setup__()
         cls.tipo_documento.selection = TIPO_DOCUMENTO
         cls.name.states.update(_STATES_STUDENT)
+        t = cls.__table__()
+        cls._sql_constraints = [
+            ('doc_number_uniq', Unique(t, t.doc_number),
+                'unlimit_school_essential.msg_doc_number_unique'),
+        ]
+
 
     @classmethod
     def view_attributes(cls):

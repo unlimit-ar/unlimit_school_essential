@@ -3,7 +3,8 @@
     <label name="year"/>
     <field name="year"/>
     <label name="student"/>
-    <field name="student"/>
+    <field name="student" mode="tree,form"
+            view_ids="unlimit_school_essential.school_student_party_view_list,unlimit_school_essential.school_student_party_view_form"/>
     <label name="doc_number"/>
     <field name="doc_number"/>
     <label name="level"/>

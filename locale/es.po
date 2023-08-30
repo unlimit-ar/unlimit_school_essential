@@ -1,0 +1,567 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:party.party,age:"
+msgid "Age"
+msgstr "Edad"
+
+msgctxt "field:party.party,citizenship:"
+msgid "Citizenship"
+msgstr "Nacionalidad"
+
+msgctxt "field:party.party,contact_mechanisms_function:"
+msgid "Contact Mechanisms"
+msgstr "Métodos de contacto"
+
+msgctxt "field:party.party,dob:"
+msgid "Date of Birth"
+msgstr "Fecha de nacimiento"
+
+msgctxt "field:party.party,doc_number:"
+msgid "Doc Number"
+msgstr "Número de doc"
+
+msgctxt "field:party.party,employment:"
+msgid "Employment"
+msgstr "Ocupación"
+
+msgctxt "field:party.party,family:"
+msgid "Family"
+msgstr "Familia"
+
+msgctxt "field:party.party,gender:"
+msgid "Gender"
+msgstr "Género"
+
+msgctxt "field:party.party,inscriptions:"
+msgid "Inscriptions"
+msgstr "Inscripciones"
+
+msgctxt "field:party.party,is_person:"
+msgid "Person"
+msgstr "Persona"
+
+msgctxt "field:party.party,is_student:"
+msgid "Student"
+msgstr "Estudiante"
+
+msgctxt "field:party.party,lastname:"
+msgid "Last Name"
+msgstr "Apellido"
+
+msgctxt "field:party.party,studies:"
+msgid "Studies"
+msgstr "Estudios"
+
+msgctxt "field:school.configuration,payment_sequence:"
+msgid "Payment Sequence"
+msgstr "Secuencia de pago"
+
+msgctxt "field:school.configuration,products:"
+msgid "Product"
+msgstr "Producto"
+
+msgctxt "field:school.configuration-product.product,config:"
+msgid "Configuration"
+msgstr "Configuración"
+
+msgctxt "field:school.configuration-product.product,product:"
+msgid "Product"
+msgstr "Producto"
+
+msgctxt "field:school.family,info:"
+msgid "Extra Information"
+msgstr "Información extra"
+
+msgctxt "field:school.family,members:"
+msgid "Family Members"
+msgstr "Miembros de la familia"
+
+msgctxt "field:school.family,name:"
+msgid "Family"
+msgstr "Familia"
+
+msgctxt "field:school.family,students_members:"
+msgid "Students"
+msgstr "Estudiante"
+
+msgctxt "field:school.family_member,family:"
+msgid "Family"
+msgstr "Familia"
+
+msgctxt "field:school.family_member,party:"
+msgid "Party"
+msgstr "Tercero"
+
+msgctxt "field:school.family_member,role:"
+msgid "Role"
+msgstr "Rol"
+
+msgctxt "field:school.fee.type,name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:school.grade,name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:school.inscription,doc_number:"
+msgid "Document Number"
+msgstr "Número del Documento"
+
+msgctxt "field:school.inscription,enrollment_fraction:"
+msgid "Enrollment Fraction"
+msgstr "Fracción de inscripción"
+
+msgctxt "field:school.inscription,fee_type:"
+msgid "Fee Type"
+msgstr "Tipo de tarifa"
+
+msgctxt "field:school.inscription,grade:"
+msgid "Grade"
+msgstr "Grado"
+
+msgctxt "field:school.inscription,level:"
+msgid "Level"
+msgstr "Nivel"
+
+msgctxt "field:school.inscription,products:"
+msgid "Products"
+msgstr "Productos"
+
+msgctxt "field:school.inscription,section:"
+msgid "Section"
+msgstr "Sección"
+
+msgctxt "field:school.inscription,student:"
+msgid "Student"
+msgstr "Estudiante"
+
+msgctxt "field:school.inscription,year:"
+msgid "School Year"
+msgstr "Año escolar"
+
+msgctxt "field:school.level,name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:school.payment,currency:"
+msgid "Currency"
+msgstr "Moneda"
+
+msgctxt "field:school.payment,date:"
+msgid "Date"
+msgstr "Fecha"
+
+msgctxt "field:school.payment,doc_number:"
+msgid "Document Number"
+msgstr "Número del Documento"
+
+msgctxt "field:school.payment,name:"
+msgid "Number"
+msgstr "Número"
+
+msgctxt "field:school.payment,products:"
+msgid "Products"
+msgstr "Productos"
+
+msgctxt "field:school.payment,products_list:"
+msgid "List Products"
+msgstr "Listar productos"
+
+msgctxt "field:school.payment,state:"
+msgid "State"
+msgstr "Estado"
+
+msgctxt "field:school.payment,student:"
+msgid "Student"
+msgstr "Estudiante"
+
+msgctxt "field:school.payment,total_pay:"
+msgid "Total to Pay"
+msgstr "Total a pagar"
+
+msgctxt "field:school.payment,year:"
+msgid "School Year"
+msgstr "Año escolar"
+
+msgctxt "field:school.product,amount:"
+msgid "Amount"
+msgstr "Cantidad"
+
+msgctxt "field:school.product,currency:"
+msgid "Currency"
+msgstr "Moneda"
+
+msgctxt "field:school.product,inscription:"
+msgid "Inscription"
+msgstr "Inscripción"
+
+msgctxt "field:school.product,part:"
+msgid "Part"
+msgstr "Cuota"
+
+msgctxt "field:school.product,payment:"
+msgid "Payment"
+msgstr "Pago"
+
+msgctxt "field:school.product,product:"
+msgid "Products"
+msgstr "Productos"
+
+msgctxt "field:school.product,state:"
+msgid "State"
+msgstr "Estado"
+
+msgctxt "field:school.product,year:"
+msgid "Year"
+msgstr "Año"
+
+msgctxt "field:school.section,name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:school.year,enrollment:"
+msgid "Enrollment"
+msgstr "Inscripción"
+
+msgctxt "field:school.year,name:"
+msgid "Year"
+msgstr "Año"
+
+msgctxt "field:school.year,products:"
+msgid "Products"
+msgstr "Productos"
+
+msgctxt "field:school.year,state:"
+msgid "State"
+msgstr "Estado"
+
+msgctxt "help:party.party,citizenship:"
+msgid "Country of Citizenship"
+msgstr "País de ciudadanía"
+
+msgctxt "help:party.party,dob:"
+msgid "Date of Birth"
+msgstr "Fecha de nacimiento"
+
+msgctxt "help:party.party,is_person:"
+msgid "Check if the party is a person."
+msgstr "Check if the is a person."
+
+msgctxt "help:party.party,is_student:"
+msgid "Check if the party is a student."
+msgstr "Check if the is a student."
+
+msgctxt "help:school.family,name:"
+msgid "Family code"
+msgstr "Código de la Familia"
+
+msgctxt "help:school.family_member,family:"
+msgid "Family code"
+msgstr "Código de la Familia"
+
+msgctxt "help:school.family_member,party:"
+msgid "Family Member"
+msgstr "Miembro de la familia"
+
+msgctxt "help:school.family_member,role:"
+msgid "Father, Mother, sibbling..."
+msgstr "Padre, madre, hermano..."
+
+msgctxt "model:ir.action,name:act_school_config"
+msgid "Configure School"
+msgstr "Configurar escuela"
+
+msgctxt "model:ir.action,name:act_school_configuration_view"
+msgid "Configuration"
+msgstr "Configuración"
+
+msgctxt "model:ir.action,name:act_school_family_view"
+msgid "Family"
+msgstr "Familia"
+
+msgctxt "model:ir.action,name:act_school_fee_type_view"
+msgid "Fee Type"
+msgstr "Tipo de tarifa"
+
+msgctxt "model:ir.action,name:act_school_grade_view"
+msgid "Grade"
+msgstr "Grado"
+
+msgctxt "model:ir.action,name:act_school_inscription_student"
+msgid "Inscription Student"
+msgstr "Inscripción Estudiante"
+
+msgctxt "model:ir.action,name:act_school_inscription_view"
+msgid "Inscriptions"
+msgstr "inscripción"
+
+msgctxt "model:ir.action,name:act_school_level_view"
+msgid "Level"
+msgstr "Nivel"
+
+msgctxt "model:ir.action,name:act_school_party_view"
+msgid "People"
+msgstr "Gente"
+
+msgctxt "model:ir.action,name:act_school_payment_view"
+msgid "Payment"
+msgstr "Pago"
+
+msgctxt "model:ir.action,name:act_school_section_view"
+msgid "Section"
+msgstr "Sección"
+
+msgctxt "model:ir.action,name:act_school_student_party_view"
+msgid "Student"
+msgstr "Estudiante"
+
+msgctxt "model:ir.action,name:act_school_year_view"
+msgid "Year"
+msgstr "Año"
+
+msgctxt "model:ir.action,name:report_school_payment"
+msgid "Payment Report"
+msgstr "Informe de pago"
+
+msgctxt "model:ir.message,text:msg_doc_number_unique"
+msgid "The document number must by unique."
+msgstr "El número de documento debe ser único."
+
+msgctxt "model:ir.message,text:msg_school_inscription"
+msgid "The student is already enrolled."
+msgstr "El estudiante ya está matriculado."
+
+msgctxt "model:ir.model.button,string:autocomplete_products_button"
+msgid "Autocomplete"
+msgstr "Autocompletar"
+
+msgctxt "model:ir.model.button,string:cancel_button"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "model:ir.model.button,string:end_button"
+msgid "End"
+msgstr "Finalizar"
+
+msgctxt "model:ir.model.button,string:in_caming_button"
+msgid "In Caming"
+msgstr "En Caming"
+
+msgctxt "model:ir.model.button,string:in_progress_button"
+msgid "Start Year"
+msgstr "Iniciar"
+
+msgctxt "model:ir.model.button,string:pay_button"
+msgid "Pay"
+msgstr "Pagar"
+
+msgctxt "model:ir.model.button,string:update_button"
+msgid "Update"
+msgstr "Actualizar"
+
+msgctxt "model:ir.sequence.type,name:sequence_type_school_payment"
+msgid "School Payment"
+msgstr "Pago Escolar"
+
+msgctxt "model:ir.ui.menu,name:menu_configuration"
+msgid "Configuration"
+msgstr "Configuración"
+
+msgctxt "model:ir.ui.menu,name:menu_configuration_school"
+msgid "Configuration"
+msgstr "Configuración"
+
+msgctxt "model:ir.ui.menu,name:menu_fee_type"
+msgid "Fee Type"
+msgstr "Tipo de tarifa"
+
+msgctxt "model:ir.ui.menu,name:menu_grade"
+msgid "Grade"
+msgstr "Grado"
+
+msgctxt "model:ir.ui.menu,name:menu_inscription"
+msgid "Inscriptions"
+msgstr "Inscripciones"
+
+msgctxt "model:ir.ui.menu,name:menu_inscription_student"
+msgid "Inscription Student"
+msgstr "Inscripción Estudiante"
+
+msgctxt "model:ir.ui.menu,name:menu_level"
+msgid "Level"
+msgstr "Nivel"
+
+msgctxt "model:ir.ui.menu,name:menu_party"
+msgid "People"
+msgstr "Gente"
+
+msgctxt "model:ir.ui.menu,name:menu_school"
+msgid "School"
+msgstr "Escuela"
+
+msgctxt "model:ir.ui.menu,name:menu_school_family"
+msgid "Family"
+msgstr "Familia"
+
+msgctxt "model:ir.ui.menu,name:menu_school_payment"
+msgid "Payment"
+msgstr "Pago"
+
+msgctxt "model:ir.ui.menu,name:menu_school_payment_pay"
+msgid "Payment"
+msgstr "Pago"
+
+msgctxt "model:ir.ui.menu,name:menu_section"
+msgid "Section"
+msgstr "Sección"
+
+msgctxt "model:ir.ui.menu,name:menu_student_party"
+msgid "Student"
+msgstr "Estudiante"
+
+msgctxt "model:ir.ui.menu,name:menu_year"
+msgid "Year"
+msgstr "Año"
+
+msgctxt "model:school.config.start,name:"
+msgid "School Config"
+msgstr "Configuración escolar"
+
+msgctxt "model:school.configuration,name:"
+msgid "School Configuration"
+msgstr "Configuración escolar"
+
+msgctxt "model:school.configuration-product.product,name:"
+msgid "School Products Configuration"
+msgstr "Configuración de productos escolares"
+
+msgctxt "model:school.family,name:"
+msgid "Family"
+msgstr "Familia"
+
+msgctxt "model:school.family_member,name:"
+msgid "Family Member"
+msgstr "Miembro de la familia"
+
+msgctxt "model:school.fee.type,name:"
+msgid "Fee Type"
+msgstr "Tipo de tarifa"
+
+msgctxt "model:school.grade,name:"
+msgid "School Grade"
+msgstr "Grado escolar"
+
+msgctxt "model:school.inscription,name:"
+msgid "School Inscription"
+msgstr "Inscripción Escolar"
+
+msgctxt "model:school.level,name:"
+msgid "School Level"
+msgstr "Nivel escolar"
+
+msgctxt "model:school.payment,name:"
+msgid "Payment"
+msgstr "Pago"
+
+msgctxt "model:school.payment.income,name:"
+msgid "Payment Income"
+msgstr "Ingresos por pagos"
+
+msgctxt "model:school.product,name:"
+msgid "School Product"
+msgstr "Producto escolar"
+
+msgctxt "model:school.section,name:"
+msgid "School Section"
+msgstr "Sección Escolar"
+
+msgctxt "model:school.year,name:"
+msgid "School Year"
+msgstr "Año escolar"
+
+msgctxt "selection:party.party,gender:"
+msgid "Men"
+msgstr "Hombres"
+
+msgctxt "selection:party.party,gender:"
+msgid "Women"
+msgstr "Mujer"
+
+msgctxt "selection:party.party,gender:"
+msgid "X"
+msgstr "X"
+
+msgctxt "selection:school.payment,state:"
+msgid "Canceled"
+msgstr "Cancelada"
+
+msgctxt "selection:school.payment,state:"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt "selection:school.payment,state:"
+msgid "Payed"
+msgstr "Pagado"
+
+msgctxt "selection:school.product,state:"
+msgid "Must"
+msgstr "Debe"
+
+msgctxt "selection:school.product,state:"
+msgid "Paid"
+msgstr "Pagado"
+
+msgctxt "selection:school.year,state:"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt "selection:school.year,state:"
+msgid "End"
+msgstr "Finalizar"
+
+msgctxt "selection:school.year,state:"
+msgid "In Caming"
+msgstr "En Caming"
+
+msgctxt "selection:school.year,state:"
+msgid "In Progress"
+msgstr "En curso"
+
+msgctxt "view:party.party:"
+msgid "Contact Mechanisms"
+msgstr "Métodos de contacto"
+
+msgctxt "view:party.party:"
+msgid "Inscriptions"
+msgstr "Inscripciones"
+
+msgctxt "view:school.config.start:"
+msgid "Add the product base."
+msgstr "Agregar la base del producto."
+
+msgctxt "view:school.family:"
+msgid "Extra Info"
+msgstr "Información extra"
+
+msgctxt "view:school.family:"
+msgid "Members"
+msgstr "Miembros"
+
+msgctxt "wizard_button:school.config,start,add:"
+msgid "OK"
+msgstr "Aceptar"
+
+msgctxt "wizard_button:school.config,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:school.inscription.student,start,add:"
+msgid "OK"
+msgstr "Aceptar"
+
+msgctxt "wizard_button:school.inscription.student,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"

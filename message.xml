@@ -6,5 +6,8 @@ this repository contains the full copyright notices and license terms. -->
         <record model="ir.message" id="msg_school_inscription">
             <field name="text">The student is already enrolled.</field>
         </record>
+        <record model="ir.message" id="msg_doc_number_unique">
+            <field name="text">The document number must by unique.</field>
+        </record>
     </data>
 </tryton>

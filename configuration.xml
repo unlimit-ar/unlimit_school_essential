@@ -42,5 +42,7 @@
             <field name="group" ref="res.group_admin"/>
         </record>
 
+<!-- Ruls -->
+
     </data>
 </tryton>
