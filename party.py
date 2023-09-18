@@ -51,7 +51,7 @@ class Party(metaclass=PoolMeta):
     studies = fields.Char('Studies', states=_STATES_FAMILY)
     contact_mechanisms_function = fields.Function(fields.One2Many(
         'party.contact_mechanism', None, "Contact Mechanisms", states={'readonly':True}), 'get_contact_mechanisms')
-    inscriptions = fields.One2Many('school.inscription', 'student', 'Inscriptions')
+    inscriptions = fields.One2Many('school.inscription', 'student', 'Inscriptions', states={'readonly':True})
     
     @classmethod
     def __setup__(cls):
@@ -158,6 +158,19 @@ class Family(ModelSQL, ModelView):
         Party = pool.get('party.party')
         partys = Party.search([('family', '=', self.id), ('is_student', '=', True)])
         return [p.id for p in partys]
+    
+    @classmethod
+    def search_rec_name(cls, name, clause):
+        return [('members.party',) + tuple(clause[1:])]
+    #     if clause[1].startswith('!') or clause[1].startswith('not '):
+    #         bool_op = 'AND'
+    #     else:
+    #         bool_op = 'OR'
+    #     return [bool_op,
+    #         ('members.party',) + tuple(clause[1:]),
+    #         clause,
+    #         ]
+
 
 
 class FamilyMember(ModelSQL, ModelView):

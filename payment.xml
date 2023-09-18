@@ -7,7 +7,10 @@
             sequence="20"
             name="Payment"
             id="menu_school_payment"/>
-
+        <record model="ir.ui.menu-res.group" id="menu_school_payment_group_school_admin">
+            <field name="menu" ref="menu_school_payment"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
         
 <!-- School Payment --> 
         <record model="ir.ui.view" id="school_payment_view_form">
@@ -26,6 +29,28 @@
             <field name="res_model">school.payment</field>
             <field name="domain" eval="" pyson="1"/>
         </record>
+        <record model="ir.action.act_window.domain" id="act_school_payment_view_domain_draft">
+            <field name="name">Draft</field>
+            <field name="sequence" eval="5"/>
+            <field name="domain" eval="[('state', '=', 'draft')]" pyson="1"/>
+            <field name="count" eval="True"/>
+            <field name="act_window" ref="act_school_payment_view"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_school_payment_view_domain_payed">
+            <field name="name">Payed</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain" eval="[('state', '=', 'payed')]" pyson="1"/>
+            <field name="count" eval="True"/>
+            <field name="act_window" ref="act_school_payment_view"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_school_payment_view_domain_canceled">
+            <field name="name">Cancel</field>
+            <field name="sequence" eval="20"/>
+            <field name="domain" eval="[('state', '=', 'canceled')]" pyson="1"/>
+            <field name="count" eval="True"/>
+            <field name="act_window" ref="act_school_payment_view"/>
+        </record>
+
         <record model="ir.action.act_window.view" id="act_school_payment_view_tree_view">
             <field name="sequence" eval="10"/>
             <field name="view" ref="school_payment_view_list"/>
@@ -42,6 +67,10 @@
             sequence="10"
             action="act_school_payment_view"
             id="menu_school_payment_pay"/>
+        <record model="ir.ui.menu-res.group" id="menu_school_payment_pay_group_school_admin">
+            <field name="menu" ref="menu_school_payment_pay"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
             
             
 <!-- School Payment Income 

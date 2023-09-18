@@ -2,11 +2,25 @@
 <tryton>
     <data>
 
+        <record model="res.group" id="group_school_admin">
+            <field name="name">School Administration</field>
+        </record>
+        <record model="res.user-res.group" id="user_admin_school_admin">
+            <field name="user" ref="res.user_admin"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
+
+
 <!-- Menu -->
         <menuitem
             sequence="10"
             name="School"
             id="menu_school"/>
+        <record model="ir.ui.menu-res.group" id="menu_school_group_school_admin">
+            <field name="menu" ref="menu_school"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
+
 
 <!-- Family -->
         <record model="ir.ui.view" id="school_family_view_form">
@@ -42,6 +56,11 @@
             action="act_school_family_view"
             name="Family"
             id="menu_school_family"/>
+        <record model="ir.ui.menu-res.group" id="menu_school_family_group_school_admin">
+            <field name="menu" ref="menu_school_family"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
+
 
 <!-- Family Members -->
 
@@ -98,7 +117,7 @@
         </record>
         
         <record model="ir.action.act_window" id="act_school_student_party_view">
-            <field name="name">Student</field>
+            <field name="name">Students</field>
             <field name="res_model">party.party</field>
             <field name="domain" eval="[('is_student', '=', True)]" pyson="1"/>
         </record>
@@ -118,6 +137,11 @@
             parent="menu_school"
             action="act_school_student_party_view"
             id="menu_student_party"/>
+        <record model="ir.ui.menu-res.group" id="menu_student_party_group_school_admin">
+            <field name="menu" ref="menu_student_party"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
+
 
 <!-- All -->
         <record model="ir.ui.view" id="school_party_view_form">
@@ -152,6 +176,10 @@
             parent="menu_school"
             action="act_school_party_view"
             id="menu_party"/>
+        <record model="ir.ui.menu-res.group" id="menu_party_group_school_admin">
+            <field name="menu" ref="menu_party"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
 
 
     </data>

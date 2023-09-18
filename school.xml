@@ -57,6 +57,10 @@
             parent="menu_school"
             action="act_school_year_view"
             id="menu_year"/>
+        <record model="ir.ui.menu-res.group" id="menu_year_group_school_admin">
+            <field name="menu" ref="menu_year"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
 
 <!-- SchoolLevel -->
         <record model="ir.ui.view" id="school_level_view_form">
@@ -90,6 +94,11 @@
             parent="menu_configuration"
             action="act_school_level_view"
             id="menu_level"/>
+        <record model="ir.ui.menu-res.group" id="menu_level_group_school_admin">
+            <field name="menu" ref="menu_level"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
+
 
 <!-- SchoolSection -->
         <record model="ir.ui.view" id="school_section_view_form">
@@ -123,7 +132,11 @@
             parent="menu_configuration"
             action="act_school_section_view"
             id="menu_section"/>
-            
+        <record model="ir.ui.menu-res.group" id="menu_section_group_school_admin">
+            <field name="menu" ref="menu_section"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
+
 <!-- SchoolGrade -->
         <record model="ir.ui.view" id="school_grade_view_form">
             <field name="model">school.grade</field>
@@ -156,6 +169,10 @@
             parent="menu_configuration"
             action="act_school_grade_view"
             id="menu_grade"/>
+        <record model="ir.ui.menu-res.group" id="menu_grade_group_school_admin">
+            <field name="menu" ref="menu_grade"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
 
 <!-- SchoolFeeType -->
         <record model="ir.ui.view" id="school_fee_type_view_form">
@@ -189,6 +206,10 @@
             parent="menu_configuration"
             action="act_school_fee_type_view"
             id="menu_fee_type"/>
+        <record model="ir.ui.menu-res.group" id="menu_fee_type_group_school_admin">
+            <field name="menu" ref="menu_fee_type"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
 
 <!-- SchoolInscription -->
         <record model="ir.ui.view" id="school_inscription_view_form">
@@ -227,6 +248,10 @@
             parent="menu_configuration"
             action="act_school_inscription_view"
             id="menu_inscription"/>
+        <record model="ir.ui.menu-res.group" id="menu_inscription_group_school_admin">
+            <field name="menu" ref="menu_inscription"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
 
 <!-- Star Config -->
         <record model="ir.ui.view" id="school_config_start_view_form">
@@ -280,6 +305,10 @@
             parent="menu_school"
             action="act_school_inscription_student"
             id="menu_inscription_student"/>
+        <record model="ir.ui.menu-res.group" id="menu_inscription_student_group_school_admin">
+            <field name="menu" ref="menu_inscription_student"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
 
     </data>
 </tryton>

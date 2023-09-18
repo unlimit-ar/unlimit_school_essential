@@ -271,7 +271,7 @@ class SchoolInscriptionStudent(Wizard):
             school_products = []
             #Crear la inscriptcion
             
-            amount_fraction = Decimal(self.start.year.enrollment.amount/self.start.enrollment_fraction).quantize(Decimal('0.00'))
+            amount_fractionDraft = Decimal(self.start.year.enrollment.amount/self.start.enrollment_fraction).quantize(Decimal('0.00'))
             for fraction in range(1,self.start.enrollment_fraction+1):
                 enrollment, = SchoolProduct().copy([self.start.year.enrollment])
                 enrollment.amount = amount_fraction

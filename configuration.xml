@@ -8,6 +8,10 @@
             parent="menu_school"
             name="Configuration"
             id="menu_configuration"/>
+        <record model="ir.ui.menu-res.group" id="menu_configuration_group_school_admin">
+            <field name="menu" ref="menu_configuration"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
 
 <!-- Schoolconfiguration -->
         <record model="ir.ui.view" id="school_configuration_view_form">
@@ -31,6 +35,10 @@
             parent="menu_configuration"
             action="act_school_configuration_view"
             id="menu_configuration_school"/>
+        <record model="ir.ui.menu-res.group" id="menu_configuration_school_group_school_admin">
+            <field name="menu" ref="menu_configuration_school"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
 
 <!-- Sequence -->
         <record model="ir.sequence.type" id="sequence_type_school_payment">
@@ -43,6 +51,174 @@
         </record>
 
 <!-- Ruls -->
+        <record model="ir.model.access" id="access_party_admin">
+            <field name="model" search="[('model', '=', 'party.party')]"/>
+            <field name="group" ref="group_school_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_product_template_admin">
+            <field name="model" search="[('model', '=', 'product.template')]"/>
+            <field name="group" ref="group_school_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_product_product_admin">
+            <field name="model" search="[('model', '=', 'product.product')]"/>
+            <field name="group" ref="group_school_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+        <record model="ir.model.access" id="access_family_admin">
+            <field name="model" search="[('model', '=', 'school.family')]"/>
+            <field name="group" ref="group_school_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.model.access" id="access_family">
+            <field name="model" search="[('model', '=', 'school.family')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+        <record model="ir.model.access" id="access_family_member_admin">
+            <field name="model" search="[('model', '=', 'school.family_member')]"/>
+            <field name="group" ref="group_school_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.model.access" id="access_family_member">
+            <field name="model" search="[('model', '=', 'school.family_member')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        
+        <record model="ir.model.access" id="access_year_admin">
+            <field name="model" search="[('model', '=', 'school.year')]"/>
+            <field name="group" ref="group_school_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.model.access" id="access_year">
+            <field name="model" search="[('model', '=', 'school.year')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        
+        <record model="ir.model.access" id="access_product_admin">
+            <field name="model" search="[('model', '=', 'school.product')]"/>
+            <field name="group" ref="group_school_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.model.access" id="access_product">
+            <field name="model" search="[('model', '=', 'school.product')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+        <record model="ir.model.access" id="access_level_admin">
+            <field name="model" search="[('model', '=', 'school.level')]"/>
+            <field name="group" ref="group_school_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.model.access" id="access_level">
+            <field name="model" search="[('model', '=', 'school.level')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+        <record model="ir.model.access" id="access_section_admin">
+            <field name="model" search="[('model', '=', 'school.section')]"/>
+            <field name="group" ref="group_school_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.model.access" id="access_section">
+            <field name="model" search="[('model', '=', 'school.section')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+        <record model="ir.model.access" id="access_grade_admin">
+            <field name="model" search="[('model', '=', 'school.grade')]"/>
+            <field name="group" ref="group_school_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.model.access" id="access_grade">
+            <field name="model" search="[('model', '=', 'school.grade')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+        <record model="ir.model.access" id="access_fee_type_admin">
+            <field name="model" search="[('model', '=', 'school.fee.type')]"/>
+            <field name="group" ref="group_school_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.model.access" id="access_fee_type">
+            <field name="model" search="[('model', '=', 'school.fee.type')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+        <record model="ir.model.access" id="access_inscription_admin">
+            <field name="model" search="[('model', '=', 'school.inscription')]"/>
+            <field name="group" ref="group_school_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+        <record model="ir.model.access" id="access_inscription">
+            <field name="model" search="[('model', '=', 'school.inscription')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
 
     </data>
 </tryton>

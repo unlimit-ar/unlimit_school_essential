@@ -61,6 +61,18 @@ class SchoolPayment(Workflow, ModelSQL, ModelView):
                     'depends': ['state'],
                     },
             })
+    
+    @classmethod
+    def __post_setup__(cls):
+        super().__post_setup__()
+
+        inactive = Eval('state', 'draft').in_(['payed', 'canceled'])
+        for name, field in cls._fields.items():
+            if 'readonly' in field.states:
+                field.states['readonly'] |= inactive
+            else:
+                field.states['readonly'] = inactive
+
 
     @staticmethod
     def default_currency():

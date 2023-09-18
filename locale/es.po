@@ -188,7 +188,7 @@ msgstr "Año escolar"
 
 msgctxt "field:school.product,amount:"
 msgid "Amount"
-msgstr "Cantidad"
+msgstr "Monto"
 
 msgctxt "field:school.product,currency:"
 msgid "Currency"
@@ -304,7 +304,7 @@ msgstr "Nivel"
 
 msgctxt "model:ir.action,name:act_school_party_view"
 msgid "People"
-msgstr "Gente"
+msgstr "Personas"
 
 msgctxt "model:ir.action,name:act_school_payment_view"
 msgid "Payment"
@@ -315,8 +315,8 @@ msgid "Section"
 msgstr "Sección"
 
 msgctxt "model:ir.action,name:act_school_student_party_view"
-msgid "Student"
-msgstr "Estudiante"
+msgid "Students"
+msgstr "Estudiantes"
 
 msgctxt "model:ir.action,name:act_school_year_view"
 msgid "Year"
@@ -348,7 +348,7 @@ msgstr "Finalizar"
 
 msgctxt "model:ir.model.button,string:in_caming_button"
 msgid "In Caming"
-msgstr "En Caming"
+msgstr "En Camino"
 
 msgctxt "model:ir.model.button,string:in_progress_button"
 msgid "Start Year"
@@ -396,7 +396,7 @@ msgstr "Nivel"
 
 msgctxt "model:ir.ui.menu,name:menu_party"
 msgid "People"
-msgstr "Gente"
+msgstr "Personas"
 
 msgctxt "model:ir.ui.menu,name:menu_school"
 msgid "School"
