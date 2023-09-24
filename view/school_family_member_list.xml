@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<tree>
-    <field name="family" expand="1"/>
-    <field name="party" expand="1" widget="char"/>
-    <field name="role" expand="1"/>
-</tree>

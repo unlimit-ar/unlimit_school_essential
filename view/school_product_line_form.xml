@@ -1,12 +1,9 @@
 <?xml version="1.0"?>
-<form col="6">
+<form>
     <label name="product"/>
     <field name="product"/>
-    <newline/>
-    <label name="currency"/>
-    <field name="currency"/>
+    <label name="name"/>
+    <field name="name"/>
     <label name="amount"/>
     <field name="amount" symbol="currency"/>
-    <label name="part"/>
-    <field name="part"/>
 </form>

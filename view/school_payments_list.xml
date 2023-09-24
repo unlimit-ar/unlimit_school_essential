@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
 <tree>
-    <field name="year"/>
+    <field name="name"/>
     <field name="inscription"/>
-    <field name="amount"/>
     <field name="product"/>
-    <field name="part"/>
+    <field name="amount_paid"/>
     <field name="state"/>
 </tree>

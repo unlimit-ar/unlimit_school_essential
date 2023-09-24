@@ -9,5 +9,8 @@ this repository contains the full copyright notices and license terms. -->
         <record model="ir.message" id="msg_doc_number_unique">
             <field name="text">The document number must by unique.</field>
         </record>
+        <record model="ir.message" id="msg_level_uniq">
+            <field name="text">The level must by unique.</field>
+        </record>
     </data>
 </tryton>

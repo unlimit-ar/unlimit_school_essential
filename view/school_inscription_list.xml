@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <tree>
-    <field name="year" widget="char"/>
-    <field name="student" widget="char"/>
-    <field name="grade" widget="char"/>
-    <field name="level" widget="char" optional="1"/>
-    <field name="section" widget="char" optional="1"/>
+    <field name="name"/>
+    <field name="year"/>
+    <field name="student"/>
+    <field name="level"/>
+    <field name="level_year"/>
 </tree>

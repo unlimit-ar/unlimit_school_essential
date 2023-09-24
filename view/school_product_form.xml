@@ -1,19 +1,10 @@
 <?xml version="1.0"?>
-<form>
-    <label name="year"/>
-    <field name="year"/>
-    <label name="product"/>
-    <field name="product"/>
-    <label name="amount"/>
-    <field name="amount"/>
-    <label name="currency"/>
-    <field name="currency"/>
-    <label name="inscription"/>
-    <field name="inscription"/>
-    <label name="payment"/>
-    <field name="payment"/>
+<form col="6">
+    <label name="type"/>
+    <field name="type"/>
+    <label name="level"/>
+    <field name="level"/>
     <label name="part"/>
     <field name="part"/>
-    <label name="state"/>
-    <field name="state"/>
+    <field name="lines" colspan="4"/>
 </form>

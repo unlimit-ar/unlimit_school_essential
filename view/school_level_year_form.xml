@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<form>
+    <label name="name"/>
+    <field name="name"/>
+    <label name="level"/>
+    <field name="level"/>
+    <newline/>
+    <label name="shift_time"/>
+    <field name="shift_time"/>
+</form>

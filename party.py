@@ -26,14 +26,15 @@ _STATES_FAMILY={'required': And(Bool(Eval('is_person')), Not(Bool(Eval('is_stude
 class Party(metaclass=PoolMeta):
     __name__ = 'party.party'
 
+    parent = fields.Many2One(
+        'party.party', 'Parent')
     lastname = fields.Char('Last Name', states={'required': Bool(Eval('is_person'))})
     doc_number = fields.Char('Doc Number', states={'required': Bool(Eval('is_person'))})
     is_person = fields.Boolean('Person',
         help='Check if the party is a person.')
     is_student = fields.Boolean('Student',
         help='Check if the party is a student.')
-    family = fields.Many2One('school.family', 'Family')
-    # family = fields.One2Many('school.family', 'party', 'Family')
+    family = fields.One2Many('party.party', 'parent', 'Family', domain=[('is_person', '=', True)], help='Family Members')
     gender = fields.Selection((
         (None, ''),
         ('men', 'Men'),
@@ -49,9 +50,7 @@ class Party(metaclass=PoolMeta):
         states={'required': Bool(Eval('is_person'))})
     employment = fields.Char('Employment', states=_STATES_FAMILY)
     studies = fields.Char('Studies', states=_STATES_FAMILY)
-    contact_mechanisms_function = fields.Function(fields.One2Many(
-        'party.contact_mechanism', None, "Contact Mechanisms", states={'readonly':True}), 'get_contact_mechanisms')
-    inscriptions = fields.One2Many('school.inscription', 'student', 'Inscriptions', states={'readonly':True})
+    # inscriptions = fields.One2Many('school.inscription', 'student', 'Inscriptions', states={'readonly':True})
     
     @classmethod
     def __setup__(cls):
@@ -115,75 +114,3 @@ class Party(metaclass=PoolMeta):
                 + str(rdelta.days) + 'd'
             
             return years_months_days
-        
-    
-    def get_contact_mechanisms(self, name):
-        contacts = []
-        contacts.extend(self.contact_mechanisms)
-        if not self.family:
-            return contacts
-        for family in self.family.members:
-            contacts.extend(family.party.contact_mechanisms)
-        return contacts
-    
-    # @staticmethod
-    # def default_is_student():
-    #     return True
-
-
-class Family(ModelSQL, ModelView):
-    'Family'
-    __name__ = 'school.family'
-
-    name = fields.Char('Family', required=True, help='Family code')
-
-    members = fields.One2Many(
-        'school.family_member', 'family', 'Family Members')
-    
-    students_members = fields.Function(fields.One2Many('party.party', None, 'Students'), 'get_students_members') 
-
-    info = fields.Text('Extra Information')
-
-    @classmethod
-    def __setup__(cls):
-        super(Family, cls).__setup__()
-        t = cls.__table__()
-        cls._sql_constraints = [
-            ('name_uniq', Unique(t, t.name),
-             'The Family Code must be unique !'),
-        ]
-
-    def get_students_members(self, name):
-        pool = Pool()
-        Party = pool.get('party.party')
-        partys = Party.search([('family', '=', self.id), ('is_student', '=', True)])
-        return [p.id for p in partys]
-    
-    @classmethod
-    def search_rec_name(cls, name, clause):
-        return [('members.party',) + tuple(clause[1:])]
-    #     if clause[1].startswith('!') or clause[1].startswith('not '):
-    #         bool_op = 'AND'
-    #     else:
-    #         bool_op = 'OR'
-    #     return [bool_op,
-    #         ('members.party',) + tuple(clause[1:]),
-    #         clause,
-    #         ]
-
-
-
-class FamilyMember(ModelSQL, ModelView):
-    'Family Member'
-    __name__ = 'school.family_member'
-
-    family = fields.Many2One(
-        'school.family', 'Family', required=True, readonly=True,
-        help='Family code')
-
-    party = fields.Many2One(
-        'party.party', 'Party', required=True,
-        domain=[('is_person', '=', True)],
-        help='Family Member')
-
-    role = fields.Char('Role', help='Father, Mother, sibbling...')

@@ -17,8 +17,6 @@
         <field name="tipo_documento"/>
         <label name="doc_number"/>
         <field name="doc_number"/>
-        <label name="family"/>
-        <field name="family" colspan="5"/>
     </group>
     <group col="6" colspan="6" id="family">
         <label name="employment"/>
@@ -26,9 +24,7 @@
         <label name="studies"/>
         <field name="studies" colspan="2"/>
         <newline/>
-        <field name="contact_mechanisms" colspan="2"
-            view_ids="unlimit_school_essential.contact_mechanism_view_tree_sequence"/>
-        <field name="addresses" mode="form,tree" colspan="4"
+        <field name="addresses" mode="form,tree" colspan="6"
             view_ids="unlimit_school_essential.address_view_form_simple,party.address_view_tree_sequence"/>
     </group>
 </form>

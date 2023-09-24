@@ -2,4 +2,5 @@
 <form>
     <label name="name"/>
     <field name="name"/>
+    <field name="year" colspan="4"/>
 </form>

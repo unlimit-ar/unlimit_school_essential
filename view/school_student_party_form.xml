@@ -17,8 +17,8 @@
         <field name="tipo_documento"/>
         <label name="doc_number"/>
         <field name="doc_number"/>
-        <label name="family"/>
-        <field name="family" colspan="5"/>
+        <field name="family" colspan="6" mode="tree,form"
+            view_ids="unlimit_school_essential.school_party_view_list,unlimit_school_essential.school_party_view_form"/>
     </group>
     <group col="6" colspan="6" id="student">
         <label name="dob"/>
@@ -30,12 +30,12 @@
     </group>
     <notebook colspan="6">
         <page string="Contact Mechanisms" id="contact_mechanisms">
-            <field name="contact_mechanisms_function" colspan="6" mode="tree"
-                    view_ids="unlimit_school_essential.contact_mechanism_view_tree"/>
+            <field name="contact_mechanisms" colspan="2"
+                view_ids="unlimit_school_essential.contact_mechanism_view_tree_sequence"/>
         </page>
-        <page string="Inscriptions" id="inscriptions">
+        <!-- <page string="Inscriptions" id="inscriptions">
             <field name="inscriptions" colspan="6"/>
-        </page>
+        </page> -->
 
     </notebook>
 </form>

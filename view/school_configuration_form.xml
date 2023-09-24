@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<form>
-    <field name="products" colspan="4"/>
-    <label name="payment_sequence"/>
-    <field name="payment_sequence"/>
-</form>

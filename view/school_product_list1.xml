@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<tree sequence="sequence">
-    <field name="product"/>
-    <field name="amount" symbol="currency"/>
+<tree>
+    <field name="type"/>
+    <field name="level"/>
+    <field name="total_amount" symbol="currency"/>
 </tree>
