@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<form>
+    <label name="party"/>
+    <field name="party"/>
+    <newline/>
+    <label name="parent"/>
+    <field name="parent" view_ids="unlimit_school_essential.school_party_view_list,unlimit_school_essential.school_party_view_form"/>
+    <label name="rol"/>
+    <field name="rol"/>
+</form>

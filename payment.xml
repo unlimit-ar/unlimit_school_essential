@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+
+<!-- Schoolpayment -->
+        <record model="ir.ui.view" id="school_payment_view_form">
+            <field name="model">school.payment</field>
+            <field name="type">form</field>
+            <field name="name">school_payment_form</field>
+        </record>
+        <record model="ir.ui.view" id="school_payment_view_list1">
+            <field name="model">school.payment</field>
+            <field name="type">tree</field>
+            <field name="name">school_payment_list</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_school_payment">
+            <field name="name">School payment</field>
+            <field name="res_model">school.payment</field>
+        </record>
+        <record model="ir.action.act_window.domain"
+                id="act_school_payment_domain_paid">
+            <field name="name">Paid</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain" eval="[('state', '=', 'paid')]" pyson="1"/>
+            <field name="act_window" ref="act_school_payment"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+                id="act_school_payment_domain_must">
+            <field name="name">Must</field>
+            <field name="sequence" eval="20"/>
+            <field name="domain" eval="[('state', '=', 'must')]" pyson="1"/>
+            <field name="act_window" ref="act_school_payment"/>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_school_payment_tree_view">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="school_payment_view_list1"/>
+            <field name="act_window" ref="act_school_payment"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_school_payment_form_view">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="school_payment_view_form"/>
+            <field name="act_window" ref="act_school_payment"/>
+        </record>
+        
+        <menuitem
+            sequence="20"
+            parent="menu_configuration"
+            action="act_school_payment"
+            id="menu_school_payment"/>
+        <record model="ir.ui.menu-res.group" id="menu_school_payment_group_school_admin">
+            <field name="menu" ref="menu_school_payment"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
+
+
+<!-- Payment Report -->
+        <record model="ir.action.report" id="report_school_payment">
+            <field name="name">Payment Report</field>
+            <field name="model">school.payment</field>
+            <field name="report_name">school.payment.report</field>
+            <field name="report">unlimit_school_essential/report/payment.fodt</field>
+        </record>
+
+        <record model="ir.action.keyword" id="key_report_school_payment">
+            <field name="keyword">form_print</field>
+            <field name="model">school.payment,-1</field>
+            <field name="action" ref="report_school_payment"/>
+        </record>
+
+
+    </data>
+</tryton>

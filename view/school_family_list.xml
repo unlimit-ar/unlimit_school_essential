@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<tree editable="0">
+    <field name="parent"
+            view_ids="unlimit_school_essential.school_party_view_list,unlimit_school_essential.school_party_view_form"
+            widget="char"/>
+    <field name="rol"/>
+    <field name="party"/>
+</tree>
