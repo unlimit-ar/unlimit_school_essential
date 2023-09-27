@@ -27,6 +27,7 @@
             <field name="sequence" eval="20"/>
             <field name="view" ref="school_inscription_view_form"/>
             <field name="act_window" ref="act_school_inscription"/>
+            <field name="active" eval='True'/>
         </record>
         
         <menuitem
@@ -39,55 +40,20 @@
             <field name="group" ref="group_school_admin"/>
         </record>
 
-<!-- SchoolPayments -->
-        <record model="ir.ui.view" id="school_payments_view_form">
-            <field name="model">school.payments</field>
-            <field name="type">form</field>
-            <field name="name">school_payments_form</field>
-        </record>
-        <record model="ir.ui.view" id="school_payments_view_list1">
-            <field name="model">school.payments</field>
-            <field name="type">tree</field>
-            <field name="name">school_payments_list</field>
+<!-- SchoolInscriptionStudent -->
+        <record model="ir.action.wizard" id="act_school_inscription_student">
+            <field name="name">Inscription Student</field>
+            <field name="wiz_name">wizard.school.inscription</field>
+            <field name="window" eval="True"/>
         </record>
 
-        <record model="ir.action.act_window" id="act_school_payments">
-            <field name="name">School Payments</field>
-            <field name="res_model">school.payments</field>
-        </record>
-        <record model="ir.action.act_window.domain"
-                id="act_school_payments_domain_paid">
-            <field name="name">Paid</field>
-            <field name="sequence" eval="10"/>
-            <field name="domain" eval="[('state', '=', 'paid)]" pyson="1"/>
-            <field name="act_window" ref="act_school_payments"/>
-        </record>
-        <record model="ir.action.act_window.domain"
-                id="act_school_payments_domain_must">
-            <field name="name">Must</field>
-            <field name="sequence" eval="20"/>
-            <field name="domain" eval="[('state', '=', 'must)]" pyson="1"/>
-            <field name="act_window" ref="act_school_payments"/>
-        </record>
-
-        <record model="ir.action.act_window.view" id="act_school_payments_tree_view">
-            <field name="sequence" eval="10"/>
-            <field name="view" ref="school_payments_view_list1"/>
-            <field name="act_window" ref="act_school_payments"/>
-        </record>
-        <record model="ir.action.act_window.view" id="act_school_payments_form_view">
-            <field name="sequence" eval="20"/>
-            <field name="view" ref="school_payments_view_form"/>
-            <field name="act_window" ref="act_school_payments"/>
-        </record>
-        
         <menuitem
-            sequence="20"
-            parent="menu_configuration"
-            action="act_school_payments"
-            id="menu_school_payments"/>
-        <record model="ir.ui.menu-res.group" id="menu_school_payments_group_school_admin">
-            <field name="menu" ref="menu_school_payments"/>
+            sequence="5"
+            parent="menu_school"
+            action="act_school_inscription_student"
+            id="menu_inscription_student"/>
+        <record model="ir.ui.menu-res.group" id="menu_inscription_group_school_admin">
+            <field name="menu" ref="menu_inscription_student"/>
             <field name="group" ref="group_school_admin"/>
         </record>
 

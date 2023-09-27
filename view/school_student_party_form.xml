@@ -17,8 +17,7 @@
         <field name="tipo_documento"/>
         <label name="doc_number"/>
         <field name="doc_number"/>
-        <field name="family" colspan="6" mode="tree,form"
-            view_ids="unlimit_school_essential.school_party_view_list,unlimit_school_essential.school_party_view_form"/>
+        <field name="family" colspan="6"/>
     </group>
     <group col="6" colspan="6" id="student">
         <label name="dob"/>

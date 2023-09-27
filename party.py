@@ -26,15 +26,14 @@ _STATES_FAMILY={'required': And(Bool(Eval('is_person')), Not(Bool(Eval('is_stude
 class Party(metaclass=PoolMeta):
     __name__ = 'party.party'
 
-    parent = fields.Many2One(
-        'party.party', 'Parent')
     lastname = fields.Char('Last Name', states={'required': Bool(Eval('is_person'))})
     doc_number = fields.Char('Doc Number', states={'required': Bool(Eval('is_person'))})
     is_person = fields.Boolean('Person',
         help='Check if the party is a person.')
     is_student = fields.Boolean('Student',
         help='Check if the party is a student.')
-    family = fields.One2Many('party.party', 'parent', 'Family', domain=[('is_person', '=', True)], help='Family Members')
+    family = fields.One2Many('party.family', 'party', 'Family', help='Family Members')
+    # family = fields.One2Many('party.party', 'parent', 'Family', domain=[('is_person', '=', True)], help='Family Members')
     gender = fields.Selection((
         (None, ''),
         ('men', 'Men'),
@@ -114,3 +113,12 @@ class Party(metaclass=PoolMeta):
                 + str(rdelta.days) + 'd'
             
             return years_months_days
+
+
+class Family(ModelSQL, ModelView):
+    'Family'
+    __name__ = 'party.family'
+
+    party = fields.Many2One('party.party', 'Party')
+    parent = fields.Many2One('party.party', 'Parent', domain=[('is_person', '=', True)])
+    rol = fields.Char('Rol')

@@ -6,5 +6,5 @@
     <field name="level"/>
     <label name="part"/>
     <field name="part"/>
-    <field name="lines" colspan="4"/>
+    <field name="lines" colspan="6"/>
 </form>

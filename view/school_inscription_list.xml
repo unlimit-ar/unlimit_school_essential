@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <tree>
-    <field name="name"/>
     <field name="year"/>
     <field name="student"/>
     <field name="level"/>

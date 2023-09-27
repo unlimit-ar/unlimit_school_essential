@@ -41,14 +41,14 @@ class SchoolProduct(ModelSQL, ModelView):
         super(SchoolProduct, cls).__setup__()
         table = cls.__table__()
         cls._sql_constraints += [
-            ('level_uniq', Unique(table, table.level),
+            ('level_uniq', Unique(table, table.level, table.type),
                 'unlimit_school_essential.msg_level_uniq')
         ]
 
-    def get_rec_name(self, name):
-        if self.part:
-            return str(self.part) + ' ' + self.product.rec_name
-        return self.product.rec_name
+    # def get_rec_name(self, name):
+    #     if self.part:
+    #         return str(self.part) + ' ' + self.product.rec_name
+    #     return self.product.rec_name
     
     @fields.depends('lines')
     def on_change_with_total_amount(self, name=None):

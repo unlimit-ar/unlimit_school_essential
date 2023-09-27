@@ -1,11 +1,9 @@
 <?xml version="1.0"?>
 <form>
-    <label name="name"/>
-    <field name="name"/>
     <label name="year"/>
     <field name="year"/>
     <label name="student"/>
-    <field name="student"/>
+    <field name="student" view_ids="unlimit_school_essential.school_student_party_view_list,unlimit_school_essential.school_student_party_view_form"/>
     <label name="level"/>
     <field name="level"/>
     <label name="level_year"/>

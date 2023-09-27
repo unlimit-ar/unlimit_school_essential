@@ -106,6 +106,34 @@
             <field name="menu" ref="menu_party"/>
             <field name="group" ref="group_school_admin"/>
         </record>
+    
+<!-- Family -->
+    <record model="ir.ui.view" id="school_family_form_view">
+        <field name="model">party.family</field>
+        <field name="type">form</field>
+        <field name="name">school_family_form</field>
+    </record>
+    <record model="ir.ui.view" id="school_family_list_view">
+        <field name="model">party.family</field>
+        <field name="type">tree</field>
+        <field name="name">school_family_list</field>
+    </record>   
+
+    <!-- <record model="ir.action.act_window" id="act_school_family_view">
+        <field name="name">Family</field>
+        <field name="res_model">party.family</field>
+        <field name="domain" eval="" pyson="1"/>
+    </record>
+    <record model="ir.action.act_window.view" id="act_school_family_view_tree_view">
+        <field name="sequence" eval="10"/>
+        <field name="view" ref="school_family_list_view"/>
+        <field name="act_window" ref="act_school_family_view"/>
+    </record>
+    <record model="ir.action.act_window.view" id="act_school_family_view_form_view">
+        <field name="sequence" eval="20"/>
+        <field name="view" ref="school_family_form_view"/>
+        <field name="act_window" ref="act_school_family_view"/>
+    </record> -->
 
 
     </data>
