@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<form>
+    <label name="year"/>
+    <field name="year"/>
+    <label name="student"/>
+    <field name="student"/>
+</form>
