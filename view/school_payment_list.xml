@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
 <tree>
+    <field name="student" widget="char"/>
+    <field name="year"/>
     <field name="name"/>
     <field name="inscription"/>
     <field name="product"/>
-    <field name="amount_paid"/>
+    <field name="amount_paid" symbol="currency" sum="1"/>
     <field name="state"/>
 </tree>
