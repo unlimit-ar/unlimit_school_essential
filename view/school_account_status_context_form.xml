@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<form>
+    <label name="level"/>
+    <field name="level"/>
+    <label name="level_year"/>
+    <field name="level_year"/>
+    <label name="student"/>
+    <field name="student"/>
+</form>

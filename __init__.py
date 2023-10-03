@@ -14,6 +14,8 @@ def register():
         school.SchoolProduct,
         school.SchoolProductLine,
         payment.SchoolPayment,
+        payment.SchoolAccountStatusContext,
+        payment.SchoolAccountStatus,
         inscription.SchoolInscription,
         module='unlimit_school_essential', type_='model')
     Pool.register(

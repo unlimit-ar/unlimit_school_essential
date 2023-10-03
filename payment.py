@@ -1,7 +1,7 @@
 import re
 import pytz
 from datetime import datetime
-from sql import Literal
+from sql import Column, Literal
 import calendar
 from decimal import Decimal
 
@@ -64,3 +64,48 @@ class SchoolPaymentReport(Report):
     __name__ = 'school.payment.report'
 
 
+class SchoolAccountStatusContext(ModelView):
+    'Payment Income'
+    __name__ = 'school.account.status.context'
+
+    level = fields.Many2One('school.level', 'Level')
+    level_year = fields.Many2One('school.level.year', 'Level Year')
+    student = fields.Many2One('party.party', 'Student', domain=[('is_student', '=', True)])
+
+
+class SchoolAccountStatus(ModelSQL, ModelView):
+    'School Account Status'
+    __name__ = 'school.account.status'
+
+    payment = fields.Many2One('school.payment', 'Payment')
+    student = fields.Function(fields.Many2One('party.party', 'Student'), 'get_student')
+
+    @classmethod
+    def table_query(cls):
+        pool = Pool()
+        columns = []
+        context = Transaction().context
+        Payment = pool.get('school.payment')
+        Inscription = pool.get('school.inscription')
+        payment = Payment.__table__()
+        inscription = Inscription.__table__()
+        where = Literal(True)
+        columns = []
+        for fname, field in cls._fields.items():
+            if hasattr(field, 'set'):
+                continue
+            if fname == 'payment':
+                column = Column(payment, 'id').as_(fname)
+            else:
+                column = Column(payment, fname).as_(fname)
+            columns.append(column)
+        if context.get('level'):
+            where &= (inscription.level == context.get('level'))
+        if context.get('level_year'):
+            where &= (inscription.level_year == context.get('level_year'))
+        if context.get('student'):
+            where &= (inscription.student == context.get('student'))
+        return payment.join(inscription, condition=inscription.id == payment.inscription).select(*columns, where=where)
+        
+    def get_student(self, name):
+        return self.payment.student

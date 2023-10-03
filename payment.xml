@@ -2,6 +2,13 @@
 <tryton>
     <data>
 
+<!-- SchoolPaymentIncome -->
+        <record model="ir.ui.view" id="school_account_status_context_view_form">
+            <field name="model">school.account.status.context</field>
+            <field name="type">form</field>
+            <field name="name">school_account_status_context_form</field>
+        </record>
+
 <!-- Schoolpayment -->
         <record model="ir.ui.view" id="school_payment_view_form">
             <field name="model">school.payment</field>
@@ -54,6 +61,44 @@
             <field name="group" ref="group_school_admin"/>
         </record>
 
+
+<!-- SchoolAccountStatus -->
+
+    <record model="ir.ui.view" id="school_account_status_view_form">
+        <field name="model">school.account.status</field>
+        <field name="type">form</field>
+        <field name="name">school_account_status_form</field>
+    </record>
+    <record model="ir.ui.view" id="school_account_status_view_list">
+        <field name="model">school.account.status</field>
+        <field name="type">tree</field>
+        <field name="name">school_account_status_list</field>
+    </record>
+
+    <record model="ir.action.act_window" id="act_school_account_status">
+        <field name="name">Account Status</field>
+        <field name="res_model">school.account.status</field>
+        <field name="domain" eval="" pyson="1"/>
+        <field name="context_model">school.account.status.context</field>
+    </record>
+    <record model="ir.action.act_window.view" id="act_school_account_status_tree_view">
+        <field name="sequence" eval="10"/>
+        <field name="view" ref="school_account_status_view_list"/>
+        <field name="act_window" ref="act_school_account_status"/>
+    </record>
+    <record model="ir.action.act_window.view" id="act_school_account_status_form_view">
+        <field name="sequence" eval="20"/>
+        <field name="view" ref="school_account_status_view_form"/>
+        <field name="act_window" ref="act_school_account_status"/>
+    </record>
+
+    <menuitem
+        parent="menu_school"
+        sequence="30"
+        action="act_school_account_status"
+        id="menu_account_status"/>
+
+    
 
 <!-- Payment Report -->
         <record model="ir.action.report" id="report_school_payment">
