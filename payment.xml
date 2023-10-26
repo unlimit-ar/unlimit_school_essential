@@ -9,6 +9,44 @@
             <field name="name">school_account_status_context_form</field>
         </record>
 
+<!-- SchoolPaymentWizardStart -->
+        <record model="ir.ui.view" id="school_payment_wizard_start_view_form">
+            <field name="model">school.payment.wizard.start</field>
+            <field name="type">form</field>
+            <field name="name">school_payment_wizard_start_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="school_payment_wizard_voucher_error_view_form">
+            <field name="model">school.payment.wizard.start</field>
+            <field name="type">form</field>
+            <field name="name">school_payment_wizard_voucher_error_form</field>
+        </record>
+        <record model="ir.ui.view" id="school_payment_wizard_pay_ok_view_form">
+            <field name="model">school.payment.wizard.start</field>
+            <field name="type">form</field>
+            <field name="name">school_payment_wizard_pay_ok_form</field>
+        </record>
+
+<!-- SchoolPaymentWizard -->
+        <record model="ir.action.wizard" id="act_school_payment_wizard">
+            <field name="name">Payment</field>
+            <field name="wiz_name">school.payment.wizard</field>
+            <field name="window" eval="True"/>
+        </record>
+        <menuitem
+            parent="menu_school"
+            sequence="40"
+            action="act_school_payment_wizard"
+            id="menu_payment_wizard"/>
+        <record model="ir.ui.menu-res.group" id="menu_payment_wizard_group_admin">
+            <field name="menu" ref="menu_payment_wizard"/>
+            <field name="group" ref="res.group_admin"/>
+        </record>
+        <record model="ir.ui.menu-res.group" id="menu_payment_wizard_group_school_admin">
+            <field name="menu" ref="menu_payment_wizard"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
+
 <!-- Schoolpayment -->
         <record model="ir.ui.view" id="school_payment_view_form">
             <field name="model">school.payment</field>
@@ -50,7 +88,7 @@
             <field name="view" ref="school_payment_view_form"/>
             <field name="act_window" ref="act_school_payment"/>
         </record>
-        
+
         <menuitem
             sequence="20"
             parent="menu_configuration"
@@ -60,7 +98,10 @@
             <field name="menu" ref="menu_school_payment"/>
             <field name="group" ref="group_school_admin"/>
         </record>
-
+        <record model="ir.ui.menu-res.group" id="menu_school_payment_group_admin">
+            <field name="menu" ref="menu_school_payment"/>
+            <field name="group" ref="res.group_admin"/>
+        </record>
 
 <!-- SchoolAccountStatus -->
 
@@ -97,6 +138,14 @@
         sequence="30"
         action="act_school_account_status"
         id="menu_account_status"/>
+    <record model="ir.ui.menu-res.group" id="menu_account_status_group_admin">
+        <field name="menu" ref="menu_account_status"/>
+        <field name="group" ref="res.group_admin"/>
+    </record>
+    <record model="ir.ui.menu-res.group" id="menu_account_status_group_school_admin">
+        <field name="menu" ref="menu_account_status"/>
+        <field name="group" ref="group_school_admin"/>
+    </record>
 
     
 
@@ -110,10 +159,61 @@
 
         <record model="ir.action.keyword" id="key_report_school_payment">
             <field name="keyword">form_print</field>
-            <field name="model">school.payment,-1</field>
+            <field name="model">school.payment.receipt,-1</field>
             <field name="action" ref="report_school_payment"/>
         </record>
 
+<!-- SchoolPaymentReceipt -->
+
+        <record model="ir.ui.view" id="school_payment_receipt_list_view">
+            <field name="model">school.payment.receipt</field>
+            <field name="type">tree</field>
+            <field name="name">school_payment_receipt_list</field>
+        </record>
+        <record model="ir.ui.view" id="school_payment_receipt_form_view">
+            <field name="model">school.payment.receipt</field>
+            <field name="type">form</field>
+            <field name="name">school_payment_receipt_form</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_school_payment_receipt">
+            <field name="name">Payment Receipt</field>
+            <field name="res_model">school.payment.receipt</field>
+            <field name="domain" eval="" pyson="1"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_school_payment_receipt_tree_view">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="school_payment_receipt_list_view"/>
+            <field name="act_window" ref="act_school_payment_receipt"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_school_payment_receipt_form_view">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="school_payment_receipt_form_view"/>
+            <field name="act_window" ref="act_school_payment_receipt"/>
+        </record>
+
+        <menuitem
+            parent="menu_school"
+            sequence="40"
+            action="act_school_payment_receipt"
+            id="menu_payment_receipt"/>
+        <record model="ir.ui.menu-res.group" id="menu_payment_receipt_group_admin">
+           <field name="menu" ref="menu_payment_receipt"/>
+           <field name="group" ref="res.group_admin"/>
+        </record>
+        <record model="ir.ui.menu-res.group" id="menu_payment_receipt_group_school_admin">
+           <field name="menu" ref="menu_payment_receipt"/>
+           <field name="group" ref="group_school_admin"/>
+        </record>
+
+<!-- SchoolPaymentReceiptEmailNotify -->
+        <record model="ir.action.report" id="report_email_payment_notify">
+            <field name="name">Send Notify Payment</field>
+            <field name="model">school.payment.receipt</field>
+            <field name="report_name">school.email.payment.notify.report</field>
+            <field name="report">unlimit_school_essential/report/email_payment_notify.html</field>
+            <field name="template_extension">html</field>
+        </record>
 
     </data>
 </tryton>

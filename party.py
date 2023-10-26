@@ -62,7 +62,6 @@ class Party(metaclass=PoolMeta):
                 'unlimit_school_essential.msg_doc_number_unique'),
         ]
 
-
     @classmethod
     def view_attributes(cls):
         return [

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<form col="4">
+    <notebook>
+        <page string="Email" name="email">
+            <label name="subject"/>
+            <field name="subject"/>
+            <separator name="body" colspan="4"/>
+            <field name="body" colspan="4" widget="richtext"/>
+            <field name="attachment" colspan="4"/>
+        </page>
+        <page string="Recipients" name="recipients">
+            <field name="students"/>
+        </page>
+    </notebook>
+</form>

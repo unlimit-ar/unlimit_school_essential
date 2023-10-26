@@ -2,6 +2,8 @@
 <form>
     <label name="name"/>
     <field name="name"/>
+    <label name="type"/>
+    <field name="type"/>
     <label name="inscription"/>
     <field name="inscription"/>
     <label name="product"/>

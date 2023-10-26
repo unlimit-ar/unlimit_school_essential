@@ -112,5 +112,43 @@
             <field name="group" ref="group_school_admin"/>
         </record>
 
+
+<!-- NotifycationAttachment -->
+
+        <record model="ir.ui.view" id="school_notify_attachmen_form_view">
+            <field name="model">school.notify.attachment</field>
+            <field name="type">form</field>
+            <field name="name">school_notify_attachment_form</field>
+        </record>
+
+<!-- Notifycation -->
+
+        <record model="ir.ui.view" id="school_notify_start_form_view">
+            <field name="model">school.notify.start</field>
+            <field name="type">form</field>
+            <field name="name">school_notify_start_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="act_school_notify_wizard">
+            <field name="name">Notifycation</field>
+            <field name="wiz_name">school.notify.wizard</field>
+            <field name="window" eval="True"/>
+        </record>
+        
+        <menuitem
+            parent="menu_school"
+            sequence="60"
+            action="act_school_notify_wizard"
+            id="menu_notify_wizard"/>
+        <record model="ir.ui.menu-res.group" id="menu_notify_wizard_group_admin">
+            <field name="menu" ref="menu_notify_wizard"/>
+            <field name="group" ref="res.group_admin"/>
+        </record>
+        <record model="ir.ui.menu-res.group" id="menu_notify_wizard_group_school_admin">
+            <field name="menu" ref="menu_notify_wizard"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
+
+
     </data>
 </tryton>

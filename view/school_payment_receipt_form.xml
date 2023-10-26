@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<form col="6">
+    <label name="code"/>
+    <field name="code"/>
+    <label name="date"/>
+    <field name="date"/>
+    <label name="year"/>
+    <field name="year"/>
+    <label name="student"/>
+    <field name="student"/>
+    <field name="payments" colspan="6"/>
+    <label name="voucher_id"/>
+    <field name="voucher_id" xexpand="1"/>
+</form>

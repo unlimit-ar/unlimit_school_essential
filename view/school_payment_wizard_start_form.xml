@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<form col="6">
+    <label name="year"/>
+    <field name="year"/>
+    <label name="type"/>
+    <field name="type"/>
+    <label name="student"/>
+    <field name="student" view_ids="unlimit_school_essential.school_student_party_view_list,unlimit_school_essential.school_student_party_view_form"/>
+    <field name="payments" colspan="6"/>
+    <label name="voucher_id"/>
+    <field name="voucher_id" xexpand="1"/>
+</form>

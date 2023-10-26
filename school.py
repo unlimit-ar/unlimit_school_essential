@@ -3,7 +3,16 @@ import pytz
 from datetime import datetime
 from sql import Literal
 import calendar
+import mimetypes
 from decimal import Decimal
+from unittest.mock import ANY, Mock, patch
+from email.header import Header
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
+from email.mime.nonmultipart import MIMENonMultipart
+from email.encoders import encode_base64
+
 
 from trytond.model import DeactivableMixin, fields, Unique, ModelSQL, ModelView, Workflow, sequence_ordered
 from trytond.wizard import Wizard, Button, StateView, StateTransition
@@ -11,9 +20,39 @@ from trytond.pool import PoolMeta, Pool
 from trytond.pyson import Bool, Eval, Or, Id
 from trytond.transaction import Transaction
 from trytond.exceptions import UserError
-
+from trytond.sendmail import sendmail_transactional
+from trytond.tools.email_ import set_from_header
+from trytond.config import config
 from trytond.i18n import gettext
 
+
+def _send_email(from_, to, title, body, attachments=[]):
+    
+    files = [
+        (a.name, a.data) for a in attachments]
+
+    msg = MIMEMultipart('alternative')
+    for name, data in files:
+        mimetype, _ = mimetypes.guess_type(name)
+        if mimetype:
+            attachment = MIMENonMultipart(*mimetype.split('/'))
+            attachment.set_payload(data)
+            encode_base64(attachment)
+        else:
+            attachment = MIMEApplication(data)
+        attachment.add_header(
+            'Content-Disposition', 'attachment',
+            filename=('utf-8', '', name))
+        msg.attach(attachment)
+
+    msg.attach(MIMEText(body, 'html', _charset='utf-8'))
+    msg.add_header('Content-Language', ', '.join(Transaction().context.get('language')))
+    from_cfg = config.get('email', 'from')
+    set_from_header(msg, from_cfg, from_ or from_cfg)
+    msg['bcc'] = ', '.join(to)
+    msg['Subject'] = Header(title, 'utf-8')
+
+    sendmail_transactional(from_cfg, to, msg)
 
 class SchoolProduct(ModelSQL, ModelView):
     'School Product'
@@ -63,6 +102,15 @@ class SchoolProduct(ModelSQL, ModelView):
             school_products = cls.seach([('inscription.year', '=', year), ('state', '!=', 'paid')])
         import pdb;pdb.set_trace()
         pass
+
+    @classmethod
+    def write(cls, products, values, *args):
+        super(SchoolProduct, cls).write(products, values, *args)
+        Payment = Pool().get('school.payment')
+        for product in products:
+            payments = Payment.search([('product', '=', product.id), ('state', '=', 'must')])
+            Payment.write(payments, {'amount_paid': product.total_amount})
+
 
     # @classmethod
     # def write(cls, products, values, *args):
@@ -129,3 +177,54 @@ class SchoolLevelYear(ModelSQL, ModelView):
         if self.shift_time:
             return '[' + self.shift_time + '] ' + self.name
         return self.name
+    
+
+class SchoolNotifyAttachment(ModelView):
+    "Attachment"
+    __name__ = 'school.notify.attachment'
+
+    name = fields.Char('Name')
+    data = fields.Binary('Data', filename='name')
+
+
+class SchoolNotifyStart(ModelView):
+    'School Notify'
+    __name__ = 'school.notify.start'
+
+    year = fields.Integer('Year')
+    subject = fields.Char("Subject", required=True)
+    body = fields.Text("Body", required=True)
+    attachment = fields.One2Many('school.notify.attachment', None, 'Attachment')
+    # students = fields.Many2Many('party.party', None, None, 'Student', domain=[('is_student', '=', True)], 
+    #                         required=True)
+    students = fields.Many2Many('school.inscription', None, None, 'Student', 
+        domain=[
+            ('student.is_student', '=', True),
+            ('year', '=', Eval('year'))], 
+        required=True)
+
+    @staticmethod
+    def default_year():
+        return datetime.today().year
+
+
+class SchoolNotifyWizard(Wizard):
+    'School Notify Wizard'
+    __name__ = 'school.notify.wizard'
+
+    start = StateView('school.notify.start',
+        'unlimit_school_essential.school_notify_start_form_view', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Send E-Mail', 'send', 'tryton-ok', default=True),
+            ])
+
+    send = StateTransition()
+
+    def transition_send(self):
+        pool = Pool()
+        ContactMechanism = pool.get('party.contact_mechanism')
+        students = [inscription.student for inscription in self.start.students]
+        contact_mechanisms = ContactMechanism.search([('party', 'in', students), ('type', '=', 'email')])
+        to = [contact_mechanism.value for contact_mechanism in contact_mechanisms]
+        _send_email(None, to, self.start.subject, self.start.body, self.start.attachment)
+        return 'end'

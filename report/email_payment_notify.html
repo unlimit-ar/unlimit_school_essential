@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:py="http://genshi.edgewall.org/">
+    <head>
+        <title>Email Validation</title>
+    </head>
+    <body>
+        <py:for each="record in records">
+        <div style="display: block; text-align: center">
+            <div>
+                <h1>${record.student.lastname}</h1>
+            </div>
+            <hr style="margin-top: 20px;
+            border-style: solid none none; border-color: #EEE"></hr>
+            <div style="font-size: 80%; color: #777">
+                <p>Button is not working? Paste this into your browser:</p>
+                <p>If you received this email by mistake, just ignore it.</p>
+            </div>
+        </div>
+        </py:for>
+    </body>
+</html>

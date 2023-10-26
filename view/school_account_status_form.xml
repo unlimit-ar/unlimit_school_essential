@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 <form>
-    <label name="payment"/>
-    <field name="payment"/>
+    <label name="inscription"/>
+    <field name="inscription"/>
+    <label name="student"/>
+    <field name="student"/>
 </form>

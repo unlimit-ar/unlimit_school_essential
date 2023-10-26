@@ -12,5 +12,8 @@ this repository contains the full copyright notices and license terms. -->
         <record model="ir.message" id="msg_level_uniq">
             <field name="text">The level must by unique.</field>
         </record>
+        <record model="ir.message" id="msg_voucher_id_error">
+            <field name="text">The voucher is in the payment "%(code)s"</field>
+        </record>
     </data>
 </tryton>

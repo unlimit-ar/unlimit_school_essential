@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<form>
+    <label name="payment_receipt_sequence"/>
+    <field name="payment_receipt_sequence"/>
+</form>

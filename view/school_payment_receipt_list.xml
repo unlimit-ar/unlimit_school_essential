@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<tree>
+    <field name="code"/>
+    <field name="date"/>
+    <field name="student" widget="char"/>
+    <field name="year"/>
+    <field name="voucher_id"/>
+</tree>

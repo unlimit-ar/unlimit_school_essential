@@ -3,5 +3,20 @@
 this repository contains the full copyright notices and license terms. -->
 <tree>
     <field name="student"/>
-    <field name="payment"/>
+    <field name="marzo" sum="1"/>
+    <field name="abril" sum="1"/>
+    <field name="mayo" sum="1"/>
+    <field name="junio" sum="1"/>
+    <field name="julio" sum="1"/>
+    <field name="agosto" sum="1"/>
+    <field name="septiembre" sum="1"/>
+    <field name="octubre" sum="1"/>
+    <field name="noviembre" sum="1"/>
+    <field name="diciembre" sum="1"/>
+    <field name="inscription_1" sum="1"/>
+    <field name="inscription_2" sum="1"/>
+    <field name="inscription_3" sum="1"/>
+    <field name="inscription_4" sum="1"/>
+    <field name="inscription_5" sum="1"/>
+    <field name="total" sum="1"/>
 </tree>

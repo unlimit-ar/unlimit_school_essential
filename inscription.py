@@ -24,6 +24,9 @@ class SchoolInscription(ModelSQL, ModelView):
     level = fields.Many2One('school.level', 'Level')
     level_year = fields.Many2One('school.level.year', 'Level Year', domain=[('level', '=', Eval('level'))])
 
+    @staticmethod
+    def default_year():
+        return datetime.today().year
 
 
 class WizardSchoolInscription(Wizard):
@@ -65,8 +68,11 @@ class WizardSchoolInscription(Wizard):
         }])
 
         SchoolProduct = pool.get('school.product')
-        school_product, = SchoolProduct.search([('level', '=', self.start.level), ('type', '=', 'share')])
-        inscription_product, = SchoolProduct.search([('level', '=', self.start.level), ('type', '=', 'inscription')])
+        try:
+            school_product, = SchoolProduct.search([('level', '=', self.start.level), ('type', '=', 'share')])
+            inscription_product, = SchoolProduct.search([('level', '=', self.start.level), ('type', '=', 'inscription')])
+        except:
+            raise UserError('Falta configurar productos.')
         
         for month in parts:
             payments.append({
@@ -74,6 +80,7 @@ class WizardSchoolInscription(Wizard):
                 'inscription': school_inscription,
                 'product': school_product,
                 'amount_paid': school_product.total_amount,
+                'type': 'share',
             })
         
         for part in range(1, inscription_product.part +1 ):
@@ -82,6 +89,7 @@ class WizardSchoolInscription(Wizard):
                 'inscription': school_inscription,
                 'product': inscription_product,
                 'amount_paid': inscription_product.total_amount,
+                'type': 'inscription',
             })
         
         SchoolPayments.create(payments)
