@@ -5,15 +5,10 @@
     </head>
     <body>
         <py:for each="record in records">
-        <div style="display: block; text-align: center">
+        <div style="display: block; text-align: left">
             <div>
-                <h1>${record.student.lastname}</h1>
-            </div>
-            <hr style="margin-top: 20px;
-            border-style: solid none none; border-color: #EEE"></hr>
-            <div style="font-size: 80%; color: #777">
-                <p>Button is not working? Paste this into your browser:</p>
-                <p>If you received this email by mistake, just ignore it.</p>
+                <h1>${record.student.lastname}, ${record.student.name}</h1>
+                <h2>Se adjunta el recibo</h2>
             </div>
         </div>
         </py:for>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<form>
+    <group col="3" colspan="4">
+        <label string="Name = {a}" id="name" yalign="0.0" xalign="0.0"/>
+        <label string="Last Name = {b}" id="lastname" yalign="0.0" xalign="0.0"/>
+        <label string="Debts = {c}" id="debts" yalign="0.0" xalign="0.0"/>
+    </group>
+    <label name="subject"/>
+    <field name="subject"/>
+    <newline/>
+    <field name="body" widget="richtext" colspan="4"/>
+    <field name="check_orders" colspan="4"/>
+</form>

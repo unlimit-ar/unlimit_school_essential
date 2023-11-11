@@ -147,14 +147,28 @@
         <field name="group" ref="group_school_admin"/>
     </record>
 
-    
+<!-- Payment Report -->
+        <record model="ir.action.report" id="report_school_payment_receipt">
+            <field name="name">Payment Receipt Report</field>
+            <field name="model">school.payment.receipt</field>
+            <field name="report_name">school.payment.receipt</field>
+            <field name="report">unlimit_school_essential/report/payment_notify.fodt</field>
+            <field name="extension">pdf</field>
+        </record>
+
+        <record model="ir.action.keyword" id="key_report_school_payment_receipt">
+            <field name="keyword">form_print</field>
+            <field name="model">school.payment.receipt,-1</field>
+            <field name="action" ref="report_school_payment_receipt"/>
+        </record>
 
 <!-- Payment Report -->
         <record model="ir.action.report" id="report_school_payment">
             <field name="name">Payment Report</field>
-            <field name="model">school.payment</field>
+            <field name="model">school.payment.receipt</field>
             <field name="report_name">school.payment.report</field>
             <field name="report">unlimit_school_essential/report/payment.fodt</field>
+            <field name="extension">pdf</field>
         </record>
 
         <record model="ir.action.keyword" id="key_report_school_payment">

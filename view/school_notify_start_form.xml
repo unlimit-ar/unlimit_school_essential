@@ -12,4 +12,5 @@
             <field name="students"/>
         </page>
     </notebook>
+    <field name="students_size" invisible="1"/>
 </form>

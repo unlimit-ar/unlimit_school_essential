@@ -146,6 +146,30 @@ msgctxt "field:school.configuration,payment_receipt_sequence:"
 msgid "Payment Receipt Sequence"
 msgstr "Secuencia de recibo de pago"
 
+msgctxt "field:school.debt.check.order,date_number:"
+msgid "Date Number"
+msgstr "Dia del mes"
+
+msgctxt "field:school.debt.check.order,debt_notice:"
+msgid "Debt Notice"
+msgstr "Notificacion de Deuda"
+
+msgctxt "field:school.debt.check.order,level:"
+msgid "Level"
+msgstr "Nivel"
+
+msgctxt "field:school.debt.notice,body:"
+msgid "Body"
+msgstr "Mensaje"
+
+msgctxt "field:school.debt.notice,check_orders:"
+msgid "Order"
+msgstr "Orden"
+
+msgctxt "field:school.debt.notice,subject:"
+msgid "Subject"
+msgstr "Asunto"
+
 msgctxt "field:school.inscription,level:"
 msgid "Level"
 msgstr "Nivel"
@@ -186,6 +210,46 @@ msgctxt "field:school.level.year,shift_time:"
 msgid "Shift Time"
 msgstr "Horario"
 
+msgctxt "field:school.notifi.start,attachment:"
+msgid "Attachment"
+msgstr "Adjunto"
+
+msgctxt "field:school.notifi.start,subject:"
+msgid "Subject"
+msgstr "Asunto"
+
+msgctxt "field:school.notifi.start,year:"
+msgid "Year"
+msgstr "Año Lectivo"
+
+msgctxt "field:school.notify.attachment,data:"
+msgid "Data"
+msgstr "Datos"
+
+msgctxt "field:school.notify.attachment,name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:school.notify.start,attachment:"
+msgid "Attachment"
+msgstr "Adjunto"
+
+msgctxt "field:school.notify.start,body:"
+msgid "Body"
+msgstr "Mensaje"
+
+msgctxt "field:school.notify.start,students:"
+msgid "Student"
+msgstr "Estudiante"
+
+msgctxt "field:school.notify.start,subject:"
+msgid "Subject"
+msgstr "Asunto"
+
+msgctxt "field:school.notify.start,year:"
+msgid "Year"
+msgstr "Año Lectivo"
+
 msgctxt "field:school.payment,amount_paid:"
 msgid "Amount Paid"
 msgstr "Monto"
@@ -193,6 +257,10 @@ msgstr "Monto"
 msgctxt "field:school.payment,currency:"
 msgid "Currency"
 msgstr "Moneda"
+
+msgctxt "field:school.payment,date:"
+msgid "Date"
+msgstr "Fecha"
 
 msgctxt "field:school.payment,inscription:"
 msgid "Inscription"
@@ -241,6 +309,14 @@ msgstr "Código"
 msgctxt "field:school.payment.receipt,payments:"
 msgid "Payments"
 msgstr "Pagos"
+
+msgctxt "field:school.payment.receipt,receipt_report_cache:"
+msgid "Receipt Report"
+msgstr "Informe de recibo"
+
+msgctxt "field:school.payment.receipt,receipt_report_format:"
+msgid "Receipt Report Format"
+msgstr "Formato de informe de recibo"
 
 msgctxt "field:school.payment.receipt,student:"
 msgid "Student"
@@ -360,11 +436,15 @@ msgstr "Compruebe si es una estudiante."
 
 msgctxt "model:ir.action,name:act_school_account_status"
 msgid "Account Status"
-msgstr "estado de la cuenta"
+msgstr "Estado de cuenta"
 
 msgctxt "model:ir.action,name:act_school_configuration"
 msgid "Configuration"
 msgstr "Configuración"
+
+msgctxt "model:ir.action,name:act_school_debt_notice"
+msgid "Debt Notice"
+msgstr "Aviso de deuda"
 
 msgctxt "model:ir.action,name:act_school_inscription"
 msgid "School Inscription"
@@ -377,6 +457,10 @@ msgstr "Inscripción Estudiante"
 msgctxt "model:ir.action,name:act_school_level_view"
 msgid "Level"
 msgstr "Nivel"
+
+msgctxt "model:ir.action,name:act_school_notify_wizard"
+msgid "Notifycation"
+msgstr "Notificación"
 
 msgctxt "model:ir.action,name:act_school_party_view"
 msgid "People"
@@ -402,9 +486,17 @@ msgctxt "model:ir.action,name:act_school_student_party_view"
 msgid "Students"
 msgstr "Estudiantes"
 
+msgctxt "model:ir.action,name:report_email_payment_notify"
+msgid "Send Notify Payment"
+msgstr "Enviar Notificar Pago"
+
 msgctxt "model:ir.action,name:report_school_payment"
 msgid "Payment Report"
 msgstr "Informe de pago"
+
+msgctxt "model:ir.action,name:report_school_payment_receipt"
+msgid "Payment Receipt Report"
+msgstr "Informe de recibo de pago"
 
 msgctxt ""
 "model:ir.action.act_window.domain,name:act_school_payment_domain_must"
@@ -442,11 +534,15 @@ msgstr "Recibo de pago"
 
 msgctxt "model:ir.ui.menu,name:menu_account_status"
 msgid "Account Status"
-msgstr "estado de la cuenta"
+msgstr "Estado de cuenta"
 
 msgctxt "model:ir.ui.menu,name:menu_configuration"
 msgid "Configuration"
 msgstr "Configuración"
+
+msgctxt "model:ir.ui.menu,name:menu_debt_notice"
+msgid "Debt Notice"
+msgstr "Aviso de deuda"
 
 msgctxt "model:ir.ui.menu,name:menu_inscription_student"
 msgid "Inscription Student"
@@ -455,6 +551,10 @@ msgstr "Inscripción Estudiante"
 msgctxt "model:ir.ui.menu,name:menu_level"
 msgid "Level"
 msgstr "Nivel"
+
+msgctxt "model:ir.ui.menu,name:menu_notify_wizard"
+msgid "Notifycation"
+msgstr "Notificación"
 
 msgctxt "model:ir.ui.menu,name:menu_party"
 msgid "People"
@@ -512,6 +612,14 @@ msgctxt "model:school.configuration,name:"
 msgid "School Configuration"
 msgstr "School Configuration"
 
+msgctxt "model:school.debt.check.order,name:"
+msgid "School Debt Check Order"
+msgstr "Orden de chequeo de deuda"
+
+msgctxt "model:school.debt.notice,name:"
+msgid "School Debt Notice"
+msgstr "Aviso de deuda"
+
 msgctxt "model:school.inscription,name:"
 msgid "School Inscription"
 msgstr "Inscripción Escolar"
@@ -547,6 +655,10 @@ msgstr "Producto escolar"
 msgctxt "model:school.product.line,name:"
 msgid "School Product Line"
 msgstr "Línea de productos escolares"
+
+msgctxt "selection:ir.cron,method:"
+msgid "Colect Debts"
+msgstr "Recoger deudas"
 
 msgctxt "selection:party.party,gender:"
 msgid "Men"

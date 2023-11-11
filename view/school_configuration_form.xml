@@ -2,4 +2,10 @@
 <form>
     <label name="payment_receipt_sequence"/>
     <field name="payment_receipt_sequence"/>
+    <label name="limit_email"/>
+    <field name="limit_email"/>
+    <label name="sends_email"/>
+    <field name="sends_email"/>
+    <label name="date_email"/>
+    <field name="date_email"/>
 </form>

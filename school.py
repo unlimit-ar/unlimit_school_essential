@@ -12,9 +12,10 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from email.mime.nonmultipart import MIMENonMultipart
 from email.encoders import encode_base64
+from dateutil.relativedelta import relativedelta
+from itertools import chain, groupby, islice, product, repeat
 
-
-from trytond.model import DeactivableMixin, fields, Unique, ModelSQL, ModelView, Workflow, sequence_ordered
+from trytond.model import DeactivableMixin, fields, Unique, ModelSQL, ModelView, Workflow, sequence_ordered, ModelSingleton
 from trytond.wizard import Wizard, Button, StateView, StateTransition
 from trytond.pool import PoolMeta, Pool
 from trytond.pyson import Bool, Eval, Or, Id
@@ -74,15 +75,16 @@ class SchoolProduct(ModelSQL, ModelView):
         ('paid', 'Paid'),
         ('must', 'Must')
         ], 'State')
+    paid = fields.Boolean('Paid')
 
-    @classmethod
-    def __setup__(cls):
-        super(SchoolProduct, cls).__setup__()
-        table = cls.__table__()
-        cls._sql_constraints += [
-            ('level_uniq', Unique(table, table.level, table.type),
-                'unlimit_school_essential.msg_level_uniq')
-        ]
+    # @classmethod
+    # def __setup__(cls):
+    #     super(SchoolProduct, cls).__setup__()
+    #     table = cls.__table__()
+    #     cls._sql_constraints += [
+    #         ('level_uniq', Unique(table, table.level, table.type),
+    #             'unlimit_school_essential.msg_level_uniq')
+    #     ]
 
     # def get_rec_name(self, name):
     #     if self.part:
@@ -139,6 +141,10 @@ class SchoolProduct(ModelSQL, ModelView):
     @staticmethod
     def default_share():
         return 'share'
+    
+    @staticmethod
+    def default_paid():
+        return False
 
 
 class SchoolProductLine(ModelSQL, ModelView):
@@ -197,16 +203,17 @@ class SchoolNotifyStart(ModelView):
     attachment = fields.One2Many('school.notify.attachment', None, 'Attachment')
     # students = fields.Many2Many('party.party', None, None, 'Student', domain=[('is_student', '=', True)], 
     #                         required=True)
-    students = fields.Many2Many('school.inscription', None, None, 'Student', 
+    students = fields.Many2Many('school.inscription', None, None, 'Student', size=Eval('students_size', 0),
         domain=[
             ('student.is_student', '=', True),
             ('year', '=', Eval('year'))], 
-        required=True)
+        required=True, depends=['students_size'])
+    students_size = fields.Integer('students_size')
 
     @staticmethod
     def default_year():
         return datetime.today().year
-
+    
 
 class SchoolNotifyWizard(Wizard):
     'School Notify Wizard'
@@ -222,9 +229,94 @@ class SchoolNotifyWizard(Wizard):
 
     def transition_send(self):
         pool = Pool()
+        config = pool.get('school.configuration')(1)
         ContactMechanism = pool.get('party.contact_mechanism')
         students = [inscription.student for inscription in self.start.students]
         contact_mechanisms = ContactMechanism.search([('party', 'in', students), ('type', '=', 'email')])
         to = [contact_mechanism.value for contact_mechanism in contact_mechanisms]
+        config.validation_emails(len(to))
+        
         _send_email(None, to, self.start.subject, self.start.body, self.start.attachment)
         return 'end'
+
+    def default_start(self, fields):
+        pool = Pool()
+        config = pool.get('school.configuration')(1)
+        size = config.limit_email - config.sends_email -50
+        return {'students_size': size if size > 0 else 0}
+
+
+class SchoolDebtNotice(ModelSingleton, ModelSQL, ModelView):
+    'School Debt Notice'
+    __name__ = 'school.debt.notice'
+
+    subject = fields.Char("Subject", required=True)
+    body = fields.Text("Body", required=True)
+    check_orders = fields.One2Many('school.debt.check.order', 'debt_notice', 'Order')
+
+    @classmethod
+    def colect_debts(cls):
+        date = datetime.today()
+        debt_notice = cls(1)
+        for check_order in debt_notice.check_orders:
+            if check_order.date_number == date.day:
+                for party_id, in cls.get_student_debts():
+                    cls.send_debts_notify(party_id)
+        pass
+
+    @classmethod
+    def get_student_debts(cls):
+        students = []
+        cursor = Transaction().connection.cursor()
+        cursor.execute("""
+            select party_party.id
+            from party_party
+            join school_inscription ON school_inscription.student = party_party.id
+            join school_payment on school_payment.inscription = school_inscription.id
+            where school_payment.state = 'must'
+            group by 1""")
+    
+        students.append(cursor.fetchall())
+        students = list(chain(*students))
+        return students
+    
+    @classmethod
+    def send_debts_notify(cls, party_id):
+        pool = Pool()
+        
+        party = pool.get('party.party')(party_id)
+        ContactMechanism = pool.get('party.contact_mechanism')
+        contact_mechanisms = ContactMechanism.search([('party', '=', party_id), ('type', '=', 'email')])
+        to = [contact_mechanism.value for contact_mechanism in contact_mechanisms]
+        config = pool.get('school.configuration')(1)
+        config.validation_emails(len(to))
+
+        debt_notice = pool.get('school.debt.notice')(1)
+        SchoolPayment = pool.get('school.payment')
+        date = datetime.today().date() - relativedelta(months=1)
+
+        payments_must = SchoolPayment.search([('student', '=', party_id), ('state', '=', 'must'), ('date', '<', date)])
+        # payment_inscription = SchoolPayment.search([('student', '=', party_id), ('state', '=', 'must'), ('type', '=', 'inscription')])
+        must_names = ', '.join([share.name for share in payments_must])
+        # inscription_names = ', '.join([share.name for share in payment_inscription])
+
+        _send_email(None, to, debt_notice.subject, debt_notice.body.format(a=party.name, b=party.lastname, c=must_names))
+        
+
+
+class SchoolDebtCheckOrder(ModelSQL, ModelView):
+    'School Debt Check Order'
+    __name__ = 'school.debt.check.order'
+
+    level = fields.Many2One('school.level', 'Level')
+    date_number = fields.Integer('Date Number')
+    debt_notice = fields.Many2One('school.debt.notice', 'Debt Notice')
+
+    @classmethod
+    def __setup__(cls):
+        super(SchoolDebtCheckOrder, cls).__setup__()
+        table = cls.__table__()
+        cls._sql_constraints += [
+            ('level_uniq', Unique(table, table.level),
+                'unlimit_school_essential.msg_level_uniq')
+        ]

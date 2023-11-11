@@ -41,6 +41,7 @@
         <record model="ir.action.act_window" id="act_school_product">
             <field name="name">School Products</field>
             <field name="res_model">school.product</field>
+            <field name="domain" eval="[('paid', '=', False)]" pyson="1"/>
         </record>
         <record model="ir.action.act_window.view" id="act_school_product_tree_view">
             <field name="sequence" eval="10"/>
@@ -149,6 +150,46 @@
             <field name="group" ref="group_school_admin"/>
         </record>
 
+<!-- SchoolDebtCheckOrder -->
+        <record model="ir.ui.view" id="school_debt_check_order_form_view">
+            <field name="model">school.debt.check.order</field>
+            <field name="type">form</field>
+            <field name="name">school_debt_check_order_form</field>
+        </record>
+        <record model="ir.ui.view" id="school_debt_check_order_list_view">
+            <field name="model">school.debt.check.order</field>
+            <field name="type">tree</field>
+            <field name="name">school_debt_check_order_list</field>
+        </record>
 
+<!-- SchoolDebtNotice -->
+            
+        <record model="ir.ui.view" id="school_debt_notice_form_view">
+            <field name="model">school.debt.notice</field>
+            <field name="type">form</field>
+            <field name="name">school_debt_notice_form</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_school_debt_notice">
+            <field name="name">Debt Notice</field>
+            <field name="res_model">school.debt.notice</field>
+            <field name="domain" eval="" pyson="1"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_school_debt_notice_form_view">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="school_debt_notice_form_view"/>
+            <field name="act_window" ref="act_school_debt_notice"/>
+        </record>
+
+        <menuitem
+            parent="menu_configuration"
+            sequence="100"
+            action="act_school_debt_notice"
+            id="menu_debt_notice"/>
+        <record model="ir.ui.menu-res.group" id="debt_notice_group_admin">
+           <field name="menu" ref="menu_debt_notice"/>
+           <field name="group" ref="res.group_admin"/>
+        </record>
+        
     </data>
 </tryton>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+
+<!-- Cron -->
+
+        <record model="ir.cron" id="cron_colect_debts">
+            <field name="interval_number" eval="1"/>
+            <field name="interval_type">days</field>
+            <field name="method">school.debt.notice|colect_debts</field>
+        </record>
+
+    </data>
+</tryton>

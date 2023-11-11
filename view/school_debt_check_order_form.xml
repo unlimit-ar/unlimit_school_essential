@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<form>
+    <label name="level"/>
+    <field name="level"/>
+    <label name="date_number"/>
+    <field name="date_number"/>
+    <label name="debt_notice"/>
+    <field name="debt_notice"/>
+</form>

@@ -5,9 +5,14 @@ from sql import Column, Literal
 import calendar
 from decimal import Decimal
 from email.header import Header
+import mimetypes
 
+from email.mime.application import MIMEApplication
+from email.mime.nonmultipart import MIMENonMultipart
+from email.encoders import encode_base64
 from trytond.config import config
-from trytond.model import DeactivableMixin, fields, Unique, ModelSQL, ModelView, Workflow, sequence_ordered, ModelSingleton
+from trytond.model import (DeactivableMixin, fields, Unique, ModelSQL, ModelView, Workflow, 
+                           sequence_ordered, ModelSingleton, dualmethod)
 from trytond.wizard import Wizard, Button, StateView, StateTransition, StateAction
 from trytond.pool import PoolMeta, Pool
 from trytond.pyson import Bool, Eval, Or, Id, If, Equal
@@ -17,11 +22,31 @@ from trytond.report import Report, get_email
 from trytond.i18n import gettext
 from trytond.sendmail import sendmail_transactional
 from trytond.tools.email_ import set_from_header
+from trytond.rpc import RPC
 
 
-def _send_email(from_, to, email_func, receipt):
+# TODO Crear un contador de emails, limitando el envio cada 24 hs a un configurable. Google permite solo 500 mails cada 24hs
+
+def _send_email(from_, to, email_func, receipt, reports):
+
     from_cfg = config.get('email', 'from')
     msg, title = email_func(receipt)
+
+    files = [
+        (a[3]+'.'+a[0], a[1]) for a in reports]
+    for name, data in files:
+        mimetype, _ = mimetypes.guess_type(name)
+        if mimetype:
+            attachment = MIMENonMultipart(*mimetype.split('/'))
+            attachment.set_payload(data)
+            encode_base64(attachment)
+        else:
+            attachment = MIMEApplication(data)
+        attachment.add_header(
+            'Content-Disposition', 'attachment',
+            filename=('utf-8', '', name))
+        msg.attach(attachment)
+
     set_from_header(msg, from_cfg, from_ or from_cfg)
     msg['To'] = ', '.join(to)
     msg['Subject'] = Header(title, 'utf-8')
@@ -33,6 +58,7 @@ class SchoolPayment(ModelSQL, ModelView):
     __name__ = 'school.payment'
 
     name = fields.Char('Name')
+    date = fields.Date('Date')
     inscription = fields.Many2One('school.inscription', 'Inscription')
     product = fields.Many2One('school.product', 'Product')
     state = fields.Selection([
@@ -76,7 +102,6 @@ class SchoolPayment(ModelSQL, ModelView):
     def search_year(cls, name, clause):
         return [('inscription.year',) + tuple(clause[1:])]
 
-    
 
 class SchoolPaymentReport(Report):
     __name__ = 'school.payment.report'
@@ -84,8 +109,15 @@ class SchoolPaymentReport(Report):
     @classmethod
     def get_context(cls, records, header, data):
         pool = Pool()
+        Language = pool.get('ir.lang')
+        languages, = Language.search([
+            ('code', '=', Transaction().language),
+            ])
+
+        pool = Pool()
         context = Transaction().context
         report_context = super().get_context(records, header, data)
+        report_context['lang'] = languages
         return report_context
     
 
@@ -120,19 +152,9 @@ class SchoolAccountStatus(ModelSQL, ModelView):
     'School Account Status'
     __name__ = 'school.account.status'
 
-    # payment = fields.Many2One('school.payment', 'Payment')
     type = fields.Function(fields.Char('Type'), 'get_type')
     inscription = fields.Many2One('school.inscription', 'Inscription')
     student = fields.Function(fields.Many2One('party.party', 'Student'), 'get_student')
-    # share_must_pay = fields.Function(fields.Integer('Share Must'), 'get_share_must_pay')
-    # share_paid = fields.Function(fields.Integer('Share Paid'), 'get_share_paid')
-    # inscription_must_pay = fields.Function(fields.Integer('Must'), 'get_inscription_must_pay')
-    # inscription_paid = fields.Function(fields.Integer('Paid'), 'get_inscription_paid')
-    # status = fields.Function(fields.Selection([
-    #     ('paid', 'Paid'), 
-    #     ('must', 'Must'), 
-    #     ('inscription', 'Inscription'), 
-    #     (None, '')], 'Status'), 'get_status')
     marzo = fields.Function(fields.Integer('Marzo'), 'get_share')
     abril = fields.Function(fields.Integer('Abril'), 'get_share')
     mayo = fields.Function(fields.Integer('Mayo'), 'get_share')
@@ -153,10 +175,6 @@ class SchoolAccountStatus(ModelSQL, ModelView):
     @classmethod
     def view_attributes(cls):
         return super().view_attributes() + [
-            # ('/tree', 'visual',
-            #     If(Eval('status') == 'must', 'warning',
-            #        'muted')
-            # ),
             ('/tree/field[@name="marzo"]', 'tree_invisible',
                 Eval('type') == 'inscription'),
             ('/tree/field[@name="abril"]', 'tree_invisible',
@@ -220,7 +238,7 @@ class SchoolAccountStatus(ModelSQL, ModelView):
         return inscription.select(*columns, where=where)
         # return payment.join(inscription, condition=inscription.id == payment.inscription).select(*columns, where=where)
         
-    def get_total(self, name):
+    def get_total(self, name):  
         pool = Pool()
         Payment = pool.get('school.payment')
         sum = 0
@@ -260,61 +278,6 @@ class SchoolAccountStatus(ModelSQL, ModelView):
             return payments[0].amount_paid
         return 0
         
-    # @classmethod
-    # def get_share_must_pay(cls, records, name):
-    #     return cls.get_payments_count(records, 'must', 'share')
-    
-    # @classmethod
-    # def get_share_paid(cls, records, name):
-    #     return cls.get_payments_count(records, 'paid', 'share')
-    
-    # @classmethod
-    # def get_inscription_must_pay(cls, records, name):
-    #     return cls.get_payments_count(records, 'must', 'inscription')
-    
-    # @classmethod
-    # def get_inscription_paid(cls, records, name):
-    #     return cls.get_payments_count(records, 'paid', 'inscription')
-
-    # @classmethod 
-    # def get_payments_count(cls, records, state, product_type):
-    #     pool = Pool()
-    #     Payment = pool.get('school.payment')
-    #     res = {}
-    #     for record in records:
-    #         if product_type == 'inscription':
-    #             payments = Payment.search([('inscription.year', '=', record.inscription.year + 1), 
-    #                     ('state', '=', state),
-    #                     ('product.type', '=', product_type)], count=True) 
-    #             res[record.id] = payments
-
-    #         else:
-    #             payments = Payment.search([('inscription', '=', record.inscription), 
-    #                                     ('state', '=', state),
-    #                                     ('product.type', '=', product_type)], count=True) 
-    #             res[record.id] = payments
-
-    #     return res
-
-    # @classmethod
-    # def get_status(cls, records, name):
-    #     pool = Pool()
-    #     context = Transaction().context
-    #     Payment = pool.get('school.payment')
-    #     res = {}
-    #     parts = ['Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-    #     month = context.get('date').month
-        
-    #     for record in records:
-    #         if month <= 3:
-    #             res[record.id] = None
-    #         else:
-    #             payment, = Payment.search([('inscription', '=', record.inscription), 
-    #                                     ('name', '=', parts[month-3])])
-    #             res[record.id] = payment.state
-
-    #     return res
-    
 
 class SchoolPaymentWizardStart(ModelView):
     'School Payment Wizard Start'
@@ -341,7 +304,7 @@ class SchoolPaymentWizardStart(ModelView):
             ('share', 'Share')
         ], 'Type')
     voucher_id = fields.Char('Voucher ID')
-    text = fields.Text('voucher_error')
+    text = fields.Text('voucher_error', readonly=True)
 
 class SchoolPaymentWizard(Wizard):
     'School Payment Wizard'
@@ -355,7 +318,7 @@ class SchoolPaymentWizard(Wizard):
     voucher_error = StateView('school.payment.wizard.start',
         'unlimit_school_essential.school_payment_wizard_voucher_error_view_form', [
             Button('Cancel', 'end', 'tryton-cancel'),
-            Button('Back', 'start', 'tryton-back', default=True),
+            Button('Back', 'pay_ok', 'tryton-back', default=True),
             ])
     pay_ok = StateView('school.payment.wizard.start',
         'unlimit_school_essential.school_payment_wizard_pay_ok_view_form', [
@@ -379,9 +342,21 @@ class SchoolPaymentWizard(Wizard):
             
     def transition_email(self):
         pool = Pool()
-        SchoolPaymentReceipt = pool.get('school.payment.receipt')
-        SchoolPaymentReceipt.__queue__.send_receip_notify(self.start.receipt)
-        return 'end'
+        config = pool.get('school.configuration')(1)
+        ContactMechanism = pool.get('party.contact_mechanism')
+        contact_mechanisms = ContactMechanism.search([('party', '=', self.start.receipt.student), ('type', '=', 'email')])
+        to = [contact_mechanism.value for contact_mechanism in contact_mechanisms]
+
+        if config.validation_emails(len(to)):
+
+            SchoolPaymentReceipt = pool.get('school.payment.receipt')
+            SchoolPaymentReceipt.__queue__.send_receip_notify(self.start.receipt)
+            return 'pay_ok'
+
+        text = gettext('unlimit_school_essential.msg_email_cant_error')
+        self.start.text = text
+        return 'voucher_error'
+
     # def do_email_(self, action):
     #     return action, {
     #         'id': self.start.receipt.id,
@@ -391,6 +366,7 @@ class SchoolPaymentWizard(Wizard):
     def transition_pay(self):
         pool = Pool()
         Receipt = pool.get('school.payment.receipt')
+        Product = pool.get('school.product')
         if self.start.voucher_id:
             vouchers = Receipt.search([('voucher_id', '=', self.start.voucher_id)])
             if vouchers:
@@ -410,6 +386,7 @@ class SchoolPaymentWizard(Wizard):
         for payment in self.start.payments:
             payment.payment_receipt = receipt
             payment.state = 'paid'
+            payment.product, = Product.copy([payment.product], default={'paid': True})
             payment.save()
         return 'pay_ok'
     
@@ -418,6 +395,24 @@ class SchoolPaymentWizard(Wizard):
 
     def default_voucher_error(self, fields):
         return {'text': self.start.text}
+
+
+class SchoolPaymentReceiptReport(Report):
+    __name__ = 'school.payment.receipt'
+
+    @classmethod
+    def get_context(cls, records, header, data):
+        pool = Pool()
+        Language = pool.get('ir.lang')
+        languages, = Language.search([
+            ('code', '=', Transaction().language),
+            ])
+
+        pool = Pool()
+        context = Transaction().context
+        report_context = super().get_context(records, header, data)
+        report_context['lang'] = languages
+        return report_context
 
 
 class SchoolPaymentReceipt(ModelSQL, ModelView): 
@@ -433,6 +428,9 @@ class SchoolPaymentReceipt(ModelSQL, ModelView):
                               depends=['year'])
     voucher_id = fields.Char('Voucher ID')
     payments = fields.One2Many('school.payment', 'payment_receipt', 'Payments')
+    # receipt_report_cache = fields.Binary('Receipt Report', readonly=True)
+    # receipt_report_format = fields.Char('Receipt Report Format', readonly=True)
+    inscription = fields.Function(fields.Many2One('school.inscription', 'Inscription'), 'get_inscription')
 
     @staticmethod
     def default_date():
@@ -461,7 +459,7 @@ class SchoolPaymentReceipt(ModelSQL, ModelView):
         ContactMechanism = pool.get('party.contact_mechanism')
         contact_mechanisms = ContactMechanism.search([('party', '=', receip.student), ('type', '=', 'email')])
         to = [contact_mechanism.value for contact_mechanism in contact_mechanisms]
-        _send_email(None, to, cls.get_email_payment_notify, receip)
+        _send_email(None, to, cls.get_email_payment_notify, receip, cls.print_notify([receip]))
 
     @classmethod
     def get_email_payment_notify(self, receipt):
@@ -473,6 +471,29 @@ class SchoolPaymentReceipt(ModelSQL, ModelView):
         return get_email(
             'school.email.payment.notify.report', receipt, languages)
 
+    @classmethod
+    def print_notify(cls, receipts):
+        res = []
+        SchoolPaymentReceipt = Pool().get('school.payment.receipt', type='report')
+        for receipt in receipts:
+            res.append(SchoolPaymentReceipt.execute([receipt.id], {}))
+        return res
+    
+    def total(self):
+        res = 0
+        for payment in self.payments:
+            res += payment.amount_paid
+        return res
+    
+    @classmethod
+    def get_inscription(cls, records, name):
+        pool = Pool()
+        res = {}
+        Inscription = pool.get('school.inscription')
+        for record in records:
+            inscription, = Inscription.search([('year', '=', record.year),('student', '=', record.student)])
+            res[record.id] = inscription
+        return res
 
 
 class SchoolEmailPaymentNotifyReport(Report):

@@ -74,17 +74,19 @@ class WizardSchoolInscription(Wizard):
         except:
             raise UserError('Falta configurar productos.')
         
-        for month in parts:
+        for month in zip(range(3,13), parts):
             payments.append({
-                'name': month,
+                'name': month[1],
+                'date': datetime(year=self.start.year, month=month[0], day=1).date(),
                 'inscription': school_inscription,
                 'product': school_product,
                 'amount_paid': school_product.total_amount,
                 'type': 'share',
             })
-        
-        for part in range(1, inscription_product.part +1 ):
+
+        for part, month in zip(range(1, inscription_product.part +1 ),range(13-inscription_product.part +1, 13)):
             payments.append({
+                'date': datetime(year=self.start.year -1, month=month, day=1).date(),
                 'name': str(part) + ' Cuota',
                 'inscription': school_inscription,
                 'product': inscription_product,

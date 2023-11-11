@@ -15,5 +15,8 @@ this repository contains the full copyright notices and license terms. -->
         <record model="ir.message" id="msg_voucher_id_error">
             <field name="text">The voucher is in the payment "%(code)s"</field>
         </record>
+        <record model="ir.message" id="msg_email_cant_error">
+            <field name="text">can't send email, reached the limit</field>
+        </record>
     </data>
 </tryton>
