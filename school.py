@@ -55,6 +55,7 @@ def _send_email(from_, to, title, body, attachments=[]):
 
     sendmail_transactional(from_cfg, to, msg)
 
+
 class SchoolProduct(ModelSQL, ModelView):
     'School Product'
     __name__ = 'school.product'
@@ -93,10 +94,8 @@ class SchoolProduct(ModelSQL, ModelView):
     
     @fields.depends('lines')
     def on_change_with_total_amount(self, name=None):
-        total_amount = Decimal('0')
-        for line in self.lines:
-            total_amount += line.amount
-        return total_amount
+        return self.amount_with_extra_products([])
+        
     
     @classmethod
     def update_amount(cls, years):
@@ -110,8 +109,9 @@ class SchoolProduct(ModelSQL, ModelView):
         super(SchoolProduct, cls).write(products, values, *args)
         Payment = Pool().get('school.payment')
         for product in products:
+            #TODO Revisar en la incripcion las materias extra.
             payments = Payment.search([('product', '=', product.id), ('state', '=', 'must')])
-            Payment.write(payments, {'amount_paid': product.total_amount})
+            Payment.__queue__.update_ammount(payments)
 
 
     # @classmethod
@@ -145,7 +145,20 @@ class SchoolProduct(ModelSQL, ModelView):
     @staticmethod
     def default_paid():
         return False
-
+    
+    def amount_with_extra_products(self, extras=[]):
+        total = Decimal(0)
+        pool = Pool()
+        ExtraProduct = pool.get('school.extra.product')
+        extra_products = [e.name for e in ExtraProduct.search([])]
+        for line in self.lines:
+            if line.name in extra_products:
+                if line.name in extras:
+                    total += line.amount
+            else:
+                total += line.amount
+        return total
+    
 
 class SchoolProductLine(ModelSQL, ModelView):
     'School Product Line'
@@ -181,7 +194,7 @@ class SchoolLevelYear(ModelSQL, ModelView):
     
     def get_rec_name(self, name):
         if self.shift_time:
-            return '[' + self.shift_time + '] ' + self.name
+            return '[' + self.level.name + ' - ' + self.shift_time + '] ' + self.name
         return self.name
     
 
@@ -320,3 +333,10 @@ class SchoolDebtCheckOrder(ModelSQL, ModelView):
             ('level_uniq', Unique(table, table.level),
                 'unlimit_school_essential.msg_level_uniq')
         ]
+
+
+class SchoolExtraProduct(ModelSQL, ModelView):
+    'School Extra Product'
+    __name__ = 'school.extra.product'
+
+    name = fields.Char('Name')

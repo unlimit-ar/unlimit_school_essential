@@ -33,36 +33,36 @@
 
 <!-- SchoolConfiguration -->
 
-    <record model="ir.ui.view" id="school_configuration_form_view">
-        <field name="model">school.configuration</field>
-        <field name="type">form</field>
-        <field name="name">school_configuration_form</field>
-    </record>
+        <record model="ir.ui.view" id="school_configuration_form_view">
+            <field name="model">school.configuration</field>
+            <field name="type">form</field>
+            <field name="name">school_configuration_form</field>
+        </record>
 
-    <record model="ir.action.act_window" id="act_school_configuration">
-        <field name="name">Configuration</field>
-        <field name="res_model">school.configuration</field>
-        <field name="domain" eval="" pyson="1"/>
-    </record>
-    <record model="ir.action.act_window.view" id="act_school_configuration_form_view">
-        <field name="sequence" eval="20"/>
-        <field name="view" ref="school_configuration_form_view"/>
-        <field name="act_window" ref="act_school_configuration"/>
-    </record>
+        <record model="ir.action.act_window" id="act_school_configuration">
+            <field name="name">Configuration</field>
+            <field name="res_model">school.configuration</field>
+            <field name="domain" eval="" pyson="1"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_school_configuration_form_view">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="school_configuration_form_view"/>
+            <field name="act_window" ref="act_school_configuration"/>
+        </record>
 
-    <menuitem
-        parent="menu_configuration"
-        sequence="99"
-        action="act_school_configuration"
-        id="menu_school_configuration"/>
-    <record model="ir.ui.menu-res.group" id="menu_school_configuration_group_admin">
-       <field name="menu" ref="menu_school_configuration"/>
-       <field name="group" ref="res.group_admin"/>
-    </record>
-    <record model="ir.ui.menu-res.group" id="menu_school_configuration_group_school_admin">
-       <field name="menu" ref="menu_school_configuration"/>
-       <field name="group" ref="group_school_admin"/>
-    </record>
+        <menuitem
+            parent="menu_configuration"
+            sequence="99"
+            action="act_school_configuration"
+            id="menu_school_configuration"/>
+        <record model="ir.ui.menu-res.group" id="menu_school_configuration_group_admin">
+            <field name="menu" ref="menu_school_configuration"/>
+            <field name="group" ref="res.group_admin"/>
+        </record>
+        <record model="ir.ui.menu-res.group" id="menu_school_configuration_group_school_admin">
+            <field name="menu" ref="menu_school_configuration"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
 
 <!-- sequence -->
 

@@ -35,9 +35,9 @@
             parent="menu_school"
             action="act_school_inscription"
             id="menu_school_inscription"/>
-        <record model="ir.ui.menu-res.group" id="menu_school_inscription_group_school_admin">
+        <record model="ir.ui.menu-res.group" id="menu_school_inscription_group_admin">
             <field name="menu" ref="menu_school_inscription"/>
-            <field name="group" ref="group_school_admin"/>
+            <field name="group" ref="res.group_admin"/>
         </record>
 
 <!-- SchoolInscriptionStudent -->

@@ -94,10 +94,6 @@
             parent="menu_configuration"
             action="act_school_payment"
             id="menu_school_payment"/>
-        <record model="ir.ui.menu-res.group" id="menu_school_payment_group_school_admin">
-            <field name="menu" ref="menu_school_payment"/>
-            <field name="group" ref="group_school_admin"/>
-        </record>
         <record model="ir.ui.menu-res.group" id="menu_school_payment_group_admin">
             <field name="menu" ref="menu_school_payment"/>
             <field name="group" ref="res.group_admin"/>

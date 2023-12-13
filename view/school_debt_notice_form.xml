@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <form>
-    <group col="3" colspan="4">
+    <group col="3" colspan="4" id="help">
         <label string="Name = {a}" id="name" yalign="0.0" xalign="0.0"/>
         <label string="Last Name = {b}" id="lastname" yalign="0.0" xalign="0.0"/>
         <label string="Debts = {c}" id="debts" yalign="0.0" xalign="0.0"/>

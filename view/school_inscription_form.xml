@@ -8,4 +8,8 @@
     <field name="level"/>
     <label name="level_year"/>
     <field name="level_year"/>
+    <label name="scholarship"/>
+    <field name="scholarship"/>
+    <newline/>
+    <field name="extra_products" colspan="4"/>
 </form>

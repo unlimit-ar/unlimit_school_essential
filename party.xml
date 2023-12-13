@@ -97,7 +97,7 @@
             <field name="act_window" ref="act_school_party_view"/>
         </record>
         
-        <menuitem
+        <!-- <menuitem
             sequence="20"
             parent="menu_school"
             action="act_school_party_view"
@@ -105,7 +105,7 @@
         <record model="ir.ui.menu-res.group" id="menu_party_group_school_admin">
             <field name="menu" ref="menu_party"/>
             <field name="group" ref="group_school_admin"/>
-        </record>
+        </record> -->
     
 <!-- Family -->
     <record model="ir.ui.view" id="school_family_form_view">

@@ -101,7 +101,16 @@ class SchoolPayment(ModelSQL, ModelView):
     @classmethod
     def search_year(cls, name, clause):
         return [('inscription.year',) + tuple(clause[1:])]
-
+    
+    @classmethod
+    def update_ammount(cls, payments):
+        for payment in payments:
+            extra_products = [e.name for e in payment.inscription.extra_products]
+            amount_paid = payment.product.amount_with_extra_products(extra_products)
+            scholarship = payment.inscription.scholarship
+            discount = (scholarship * amount_paid) / 100
+            cls.write([payment], {'amount_paid': amount_paid - discount})
+            
 
 class SchoolPaymentReport(Report):
     __name__ = 'school.payment.report'

@@ -14,16 +14,17 @@ except ImportError:
     ProgressBar = None
 
 try:
-    from proteus import Model, config
+    from proteus import Model, config, Wizard
 except ImportError:
     prog = os.path.basename(sys.argv[0])
     sys.exit("proteus must be installed to use %s" % prog)
 
 import pandas as pd
 
-alumnos = '/home/pablo/Descargas/db_escuela/alumno.csv'
-padres = '/home/pablo/Descargas/db_escuela/padres.csv'
-padres_csv = pd.read_csv(padres)
+alumnos = '/home/pablo/Descargas/db_escuela/inscripciones2024.csv'
+cursos = '/home/pablo/Descargas/db_escuela/cursos.csv'
+# padres = '/home/pablo/Descargas/db_escuela/padres.csv'
+# padres_csv = pd.read_csv(padres)
 
 def get_citizenship(nacionalidad):
     Country = Model.get('country.country')
@@ -148,7 +149,61 @@ def find_student(file):
                 
                 party.save()
                 
-def main(database, config_file=None, file=None):
+def create_curso_dict(cursos_csv):
+    import csv
+    with open(cursos_csv, newline='') as csvfile:
+        inscription = csv.DictReader(csvfile)
+        return list(inscription)
+
+
+
+def create_incription(file):
+
+    def iterator_func(x):
+        if x.get('cod_curso', '') == cod_curso:
+            return True
+        return False
+    
+    def beca_func(curso_dic):
+        if x.get('cod_curso', '') == cod_curso:
+            return True
+        return False
+    
+    import csv
+    cursos_dic = create_curso_dict(cursos)
+    SchoolIncription = Model.get('school.inscription')
+    Party = Model.get('party.party')
+    Level = Model.get('school.level')
+    LevelYear = Model.get('school.level.year')
+    
+    with open(file, newline='') as csvfile:
+        inscription = csv.DictReader(csvfile, delimiter="|")
+        for row in inscription:
+            si = SchoolIncription()
+            # si = {}
+            year = row.get('ciclo_lectivo', False)
+            if year:
+                si.year = int(year)
+                dni = row.get('dni_alumno')
+                cod_curso = row.get('cod_curso ')
+                party, = Party.find([('doc_number', '=', dni)])
+                curso_dic, = filter(iterator_func, cursos_dic)
+                level, = Level.find([('id', '=', int(curso_dic.get('cod_nivel')))])
+                level_year, = LevelYear.find([
+                    ('name', '=', curso_dic.get('curso')),
+                    ('level', '=', level)])
+                si.student = party
+                si.level = level
+                si.level_year = level_year
+                # si.save()
+                
+                wizard_school_inscription = Wizard('wizard.school.inscription')
+                wizard_school_inscription.form = si
+                wizard_school_inscription.execute('add')
+    pass
+
+
+def main(database, config_file=None, file=None, year=None):
     config.set_trytond(database, config_file=config_file)
     with config.get_config().set_context(active_test=False):
         if not file:
@@ -157,7 +212,7 @@ def main(database, config_file=None, file=None):
 
 
 def do_import(file):
-    find_student(file)
+    create_incription(file)
     
 
 def run():
@@ -167,9 +222,11 @@ def run():
     parser.add_argument('-d', '--database', dest='database', required=True)
     parser.add_argument('-c', '--config', dest='config_file',
         help='the trytond config file')
+    parser.add_argument('-y', '--year', dest='year', required=True,
+        help='year')
 
     args = parser.parse_args()
-    main(args.database, args.config_file, args.file)
+    main(args.database, args.config_file, args.file, args.year)
 
 
 if __name__ == '__main__':

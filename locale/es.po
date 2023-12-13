@@ -508,6 +508,16 @@ msgctxt ""
 msgid "Paid"
 msgstr "Pagada"
 
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_school_product_domain_inscription"
+msgid "Inscription"
+msgstr "Inscripción"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_school_product_domain_share"
+msgid "Share"
+msgstr "Cuota"
+
 msgctxt "model:ir.message,text:msg_doc_number_unique"
 msgid "The document number must by unique."
 msgstr "Pagada"
@@ -534,7 +544,7 @@ msgstr "Recibo de pago"
 
 msgctxt "model:ir.ui.menu,name:menu_account_status"
 msgid "Account Status"
-msgstr "Estado de cuenta"
+msgstr "Listado de Facturación"
 
 msgctxt "model:ir.ui.menu,name:menu_configuration"
 msgid "Configuration"
@@ -590,7 +600,7 @@ msgstr "Productos Escolares"
 
 msgctxt "model:ir.ui.menu,name:menu_student_party"
 msgid "Students"
-msgstr "Estudiante"
+msgstr "Listado de Estudiantes"
 
 msgctxt "model:party.family,name:"
 msgid "Family"
@@ -775,3 +785,7 @@ msgstr "Aceptar"
 msgctxt "wizard_button:wizard.school.inscription,start,end:"
 msgid "Cancel"
 msgstr "Cancelar"
+
+msgctxt "view:school.notify.start:"
+msgid "Recipients"
+msgstr "Receptores"

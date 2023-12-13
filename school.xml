@@ -43,6 +43,21 @@
             <field name="res_model">school.product</field>
             <field name="domain" eval="[('paid', '=', False)]" pyson="1"/>
         </record>
+        <record model="ir.action.act_window.domain"
+                id="act_school_product_domain_inscription">
+            <field name="name">Inscription</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain" eval="[('type', '=', 'inscription')]" pyson="1"/>
+            <field name="act_window" ref="act_school_product"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+                id="act_school_product_domain_share">
+            <field name="name">Share</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain" eval="[('type', '=', 'share')]" pyson="1"/>
+            <field name="act_window" ref="act_school_product"/>
+        </record>
+
         <record model="ir.action.act_window.view" id="act_school_product_tree_view">
             <field name="sequence" eval="10"/>
             <field name="view" ref="school_product_view_list1"/>
@@ -150,6 +165,50 @@
             <field name="group" ref="group_school_admin"/>
         </record>
 
+<!-- SchoolExtraProduct -->
+        <record model="ir.ui.view" id="school_extra_product_form_view">
+            <field name="model">school.extra.product</field>
+            <field name="type">form</field>
+            <field name="name">school_extra_product_form</field>
+        </record>
+        <record model="ir.ui.view" id="school_extra_product_list_view">
+            <field name="model">school.extra.product</field>
+            <field name="type">tree</field>
+            <field name="name">school_extra_product_list</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_school_extra_product">
+            <field name="name">Extra Products</field>
+            <field name="res_model">school.extra.product</field>
+            <field name="domain" eval="" pyson="1"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_school_extra_product_tree_view">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="school_extra_product_list_view"/>
+            <field name="act_window" ref="act_school_extra_product"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_school_extra_product_form_view">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="school_extra_product_form_view"/>
+            <field name="act_window" ref="act_school_extra_product"/>
+        </record>
+
+        <menuitem
+            parent="menu_configuration"
+            sequence="90"
+            action="act_school_extra_product"
+            id="menu_school_extra_product"/>
+        <record model="ir.ui.menu-res.group" id="menu_school_extra_product_group_admin">
+            <field name="menu" ref="menu_school_extra_product"/>
+            <field name="group" ref="res.group_admin"/>
+        </record>
+        <record model="ir.ui.menu-res.group" id="menu_school_extra_product_group_school_admin">
+            <field name="menu" ref="menu_school_extra_product"/>
+            <field name="group" ref="group_school_admin"/>
+        </record>
+
+
+
 <!-- SchoolDebtCheckOrder -->
         <record model="ir.ui.view" id="school_debt_check_order_form_view">
             <field name="model">school.debt.check.order</field>
@@ -189,6 +248,10 @@
         <record model="ir.ui.menu-res.group" id="debt_notice_group_admin">
            <field name="menu" ref="menu_debt_notice"/>
            <field name="group" ref="res.group_admin"/>
+        </record>
+        <record model="ir.ui.menu-res.group" id="debt_notice_group_school_admin">
+           <field name="menu" ref="menu_debt_notice"/>
+            <field name="group" ref="group_school_admin"/>        
         </record>
         
     </data>
