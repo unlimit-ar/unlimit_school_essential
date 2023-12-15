@@ -61,9 +61,6 @@ class SchoolInscription(ModelSQL, ModelView):
             Payment.update_ammount(payments)
 
     
-
-
-
 class SchoolInscriptionExtraProduct(ModelSQL):
     'School Inscription Extra Products'
     __name__ = 'school.inscription-extra.product'

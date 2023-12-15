@@ -66,7 +66,7 @@ class SchoolProduct(ModelSQL, ModelView):
         ], 'Type')
     type_string = type.translated('type')
     level = fields.Many2One('school.level', 'Level')
-    lines = fields.One2Many('school.product.line', 'product', 'Line')
+    lines = fields.One2Many('school.product.line', 'product', 'Line', size=9)
     total_amount = fields.Function(fields.Numeric('Total Amount'), 'on_change_with_total_amount')
     # amount = fields.Numeric('Amount', digits=(16,2))
     part = fields.Integer('Part', states={'invisible': Bool(Eval('share'))})
@@ -96,14 +96,6 @@ class SchoolProduct(ModelSQL, ModelView):
     def on_change_with_total_amount(self, name=None):
         return self.amount_with_extra_products([])
         
-    
-    @classmethod
-    def update_amount(cls, years):
-        for year in years:
-            school_products = cls.seach([('inscription.year', '=', year), ('state', '!=', 'paid')])
-        import pdb;pdb.set_trace()
-        pass
-
     @classmethod
     def write(cls, products, values, *args):
         super(SchoolProduct, cls).write(products, values, *args)
